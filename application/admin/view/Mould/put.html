@@ -1,0 +1,77 @@
+    {include file="public/header" /} 
+<link href="/static/H+ v4.1/css/plugins/iCheck/custom.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>模型管理 <small>新增</small></h5>
+                    </div>
+                    <div class="ibox-content">
+                            <div  class="form-inline">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="sr-only">模型名称</label>
+                                    <input type="email" placeholder="模型名称" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="sr-only">表名称</label>
+                                    <input type="email" placeholder="表名称" class="form-control">
+                                </div>
+                             </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal" action="/index.php/admin/mould/put">
+                            <div  class="form-inline">
+                                <div class="form-group">
+                                    <input type="email" placeholder="请输入标题" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" placeholder="请输入字段"  class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" placeholder="默认值" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                       <select class="form-control  " name="type">
+                                        {volist  name='data.type'  id='vo'}
+                                        <option value="{$key}">{$vo}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-control">
+                                            <label>
+                                            <input type="checkbox" value="1"> 新增 </label>
+                                            <label>
+                                            <input type="checkbox" value="2"> 编辑 </label>
+                                            <label>
+                                            <input type="checkbox" value="3"> 列表 </label>
+                                            <label>
+                                            <input type="checkbox" value="4"> 搜索 </label>
+                                    </div>
+                                </div>
+                            </div> <!--
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary" type="button"  id="submit"  value="保存">
+                                    <a  class="btn btn-white"  href="/index.php/admin/mould/columns">取消</a>
+                                </div>
+                            </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="public/footer" /} 
+    <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
+    <script src="/static/H+ v4.1/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+</body>
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+</html>
