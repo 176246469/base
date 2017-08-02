@@ -15,7 +15,7 @@ class MenuModel  extends BaseModel
           if($pid==0){
             foreach(self::all(['pid' => $pid]) as $value){
                 foreach(self::all(['pid' => $value->id]) as $val){
-                   $data[$value->id]['child'][]=$val->toarray();
+                   $data[$value->id]['child'][$val->id]=$val->toarray();
                 }
                 $data[$value->id]['info']=$value->toarray();
             } 

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:66:"D:\otherWeb\base\public/../application/admin\view\admin\index.html";i:1501233840;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:61:"D:\git\base\public/../application/admin\view\admin\index.html";i:1501233840;}*/ ?>
 <!DOCTYPE html>
 <html>
 

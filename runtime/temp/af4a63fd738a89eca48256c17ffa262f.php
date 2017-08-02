@@ -1,4 +1,19 @@
-    {include file="public/header" /} 
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:59:"D:\git\base\public/../application/admin\view\mould\put.html";i:1501660791;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
+    <!DOCTYPE html>
+<html>
+<!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 后台登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/H+ v4.1/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/animate.min.css" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+  
 <link href="/static/H+ v4.1/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 
@@ -36,9 +51,9 @@
                                 </div>
                                 <div class="form-group">
                                        <select class="form-control  " name="fileds[type][]">
-                                        {volist  name='data.type'  id='vo'}
-                                        <option value="{$key}">{$vo}</option>
-                                        {/volist}
+                                        <?php if(is_array($data['type']) || $data['type'] instanceof \think\Collection || $data['type'] instanceof \think\Paginator): $i = 0; $__LIST__ = $data['type'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                        <option value="<?php echo $key; ?>"><?php echo $vo; ?></option>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -72,9 +87,9 @@
                                 </div>
                                 <div class="form-group">
                                        <select class="form-control  " name="fileds[type][]">
-                                        {volist  name='data.type'  id='vo'}
-                                        <option value="{$key}">{$vo}</option>
-                                        {/volist}
+                                        <?php if(is_array($data['type']) || $data['type'] instanceof \think\Collection || $data['type'] instanceof \think\Paginator): $i = 0; $__LIST__ = $data['type'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                        <option value="<?php echo $key; ?>"><?php echo $vo; ?></option>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -119,7 +134,11 @@
             </div>
         </div>
     </div>
-    {include file="public/footer" /} 
+       <script src="/static/H+ v4.1/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/H+ v4.1/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/H+ v4.1/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/static/js/common.js"></script>
+ 
     <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
     <script src="/static/H+ v4.1/js/plugins/iCheck/icheck.min.js"></script>
     <script>

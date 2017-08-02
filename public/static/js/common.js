@@ -22,7 +22,15 @@ function boxConfirm(content,e){
     },e);
 }
   //boxMsg(1,777);
-
+  function js_method(i){ 
+alert(i);
+  /*
+    if(i==1){
+      obj.closest('.form-inline').after( $(this).closest('.form-inline').prop("outerHTML")); 
+    }else{
+      obj.closest('.form-inline').remove();
+    }*/
+  }
 var jc = {
     api: 'http://www.api.com/',
     init: function() {
@@ -85,4 +93,5 @@ $('#submit').click(function(event) {
 $('#sreach').click(function(event) {
     jc.sreach$(this);
 });
+
 });

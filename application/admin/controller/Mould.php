@@ -6,11 +6,15 @@ use app\admin\model\MenuModel;
 use app\admin\model\GroupModel;
 use app\admin\model\TreeModel;
 use app\admin\model\MouldModel;
+use app\admin\model\FiledsModel;
 class Mould extends  BaseController
 {
         public function columns(){
             $data=array();
-
+            foreach(MouldModel::all() as $value){
+              $data['list'][]=$value->toarray();
+            }
+            $this->assign('data',$data);
             return $this->fetch('columns');
         }
         public function put(Request $request){
@@ -19,8 +23,26 @@ class Mould extends  BaseController
                 $this->assign('data',$data);
                 return $this->fetch('put');
             }else{
-                $group->save();
-            }            
+             $mould  =new  MouldModel();
+             $mould->name=$request->post('name');
+             $mould->table=$request->post('table');
+             $mould->save();
+             $fileds=$request->post('fileds');
+             $sql='CREATE TABLE `'. $mould->table.'` ( `id` int(11) NOT NULL AUTO_INCREMENT,';
+             foreach ( $fileds as $key => $value) {
+                 $fileds=new FiledsModel();
+                 $fileds->mould_id=$mould->id;
+                 $fileds->filed='2';
+                 $fileds->title=$mould->title;
+                 $fileds->type=$mould->type;
+                 preg_match('/\[(.*)\]/i', $MouldModel::Type($fileds->type),$res);
+                 $fileds->value=$mould->value;
+                 $sql.="`".$fileds->filed."` ".$res." DEFAULT NULL COMMENT '".$fileds->title."',";
+
+             }
+            $sql.='PRIMARY KEY (`id`) ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;';
+             
+            }      
         }
 
         public function update(Request $request){

@@ -81,21 +81,23 @@ class Admin extends  BaseController
 
         public function index(){
             $menu=MenuModel::getVals();
+           
             $admin=Session::get('admin');
             $group=GroupModel::get(2);
             $access=unserialize($group['access']);
+            /*
             foreach($menu as $key=>$value){
                     if(isset($access[$key])){
-                         foreach($menu[$key] as $k=>$v){
-                                var_dump($v); 
-                                //if(!isset($access[$key][$v['id']])){
-                                //    unset($menu[$key]['child'][$k]);
-                               // }
+                         foreach($menu[$key]["child"] as $k=>$v){
+                            
+                                if(!isset($access[$key][$k])){
+                                   unset($menu[$key][$k]);
+                                }
                          }
                     }else{
                         unset($menu[$key]);
                     }
-            }
+            }*/
             $this->assign('menu',$menu);
             return $this->fetch('index');
         }

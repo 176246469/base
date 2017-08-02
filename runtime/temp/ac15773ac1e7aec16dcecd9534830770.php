@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:64:"D:\otherWeb\base\public/../application/admin\view\admin\put.html";i:1501555275;s:68:"D:\otherWeb\base\public/../application/admin\view\public\header.html";i:1501204505;s:68:"D:\otherWeb\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:58:"D:\git\base\public/../application/admin\view\menu\put.html";i:1501229818;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
     <!DOCTYPE html>
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
@@ -23,46 +23,48 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>账户管理 <small>新增</small></h5>
+                        <h5>菜单管理 <small>新增</small></h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="get" class="form-horizontal" action="/index.php/admin/admin/put">
+                        <form method="get" class="form-horizontal" action="/index.php/admin/Menu/put">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"  >账户</label>
+                                <label class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name='name'  >
+                                    <input type="text" class="form-control" name="name">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">密码</label>
+                                <label class="col-sm-2 control-label">地址</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name='password'>
+                                    <input type="text" class="form-control" name="address">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"  >姓名</label>
+                                <label class="col-sm-2 control-label">图标</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name='username'  >
+                                    <input type="text" class="form-control" name="fa">
                                 </div>
                             </div>
+                              
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">用户组</label>
+                                <label class="col-sm-2 control-label">层级</label>
                                 <div class="col-sm-10">
-                                       <select class="form-control m-b" name="group">
-                                        <?php if(is_array($data['group']) || $data['group'] instanceof \think\Collection || $data['group'] instanceof \think\Paginator): $i = 0; $__LIST__ = $data['group'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                        <option value="<?php echo $vo['id']; ?>"><?php echo $vo['prefix']; ?><?php echo $vo['name']; ?></option>
+                                       <select class="form-control m-b" name="pid">
+                                       <option value="0">---顶级---</option>
+                                        <?php if(is_array($data['menu']) || $data['menu'] instanceof \think\Collection || $data['menu'] instanceof \think\Paginator): $i = 0; $__LIST__ = $data['menu'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                        <option value="<?php echo $vo['info']['id']; ?>"><?php echo $vo['info']['name']; ?></option>
                                         <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
-                            </div>                         
+                            </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <input class="btn btn-primary" type="button"  id="submit"  value="保存">
-                                    <a  class="btn btn-white"  href="/index.php/admin/admin/columns">取消</a>
+                                    <input class="btn btn-primary" type="button" id="submit" value="保存">
+                                    <a  class="btn btn-white"  href="/index.php/admin/menu/columns">取消</a>
                                 </div>
                             </div>
                         </form>
@@ -78,9 +80,6 @@
  
     <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
     <script src="/static/H+ v4.1/js/plugins/iCheck/icheck.min.js"></script>
-    <script>
-        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
-    </script>
 </body>
 <!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
 </html>
