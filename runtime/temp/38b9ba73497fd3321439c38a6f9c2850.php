@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\git\base\public/../application/admin\view\mould\columns.html";i:1501653481;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\git\base\public/../application/admin\view\mould\columns.html";i:1501657115;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
     <!DOCTYPE html>
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
@@ -24,7 +24,7 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/menu/put">新增</a></h4>
+                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/put">新增</a></h4>
                         <div class="example">
                             <table data-toggle="table"  >
                                 <thead>
@@ -42,7 +42,7 @@
                                         <td><?php echo $vo['name']; ?></td>
                                          <td><?php echo $vo['table']; ?></td>
                                         <td >
-                                            <a   class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/menu/update?id=<?php echo $vo['id']; ?>">修改</a>
+                                            <a   class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?id=<?php echo $vo['id']; ?>">修改</a>
                                             <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>
