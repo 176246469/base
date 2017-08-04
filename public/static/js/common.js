@@ -22,17 +22,9 @@ function boxConfirm(content,e){
     },e);
 }
   //boxMsg(1,777);
-  function js_method(i){ 
-alert(i);
-  /*
-    if(i==1){
-      obj.closest('.form-inline').after( $(this).closest('.form-inline').prop("outerHTML")); 
-    }else{
-      obj.closest('.form-inline').remove();
-    }*/
-  }
+
 var jc = {
-    api: 'http://www.api.com/',
+    api: 'http://www.tp.com/',
     init: function() {
         _this = this;
     },
@@ -70,9 +62,16 @@ var jc = {
     }
 }
   jc.init();
-//绑定表单提交
-
-
+//模型动态绑定添加
+$("#mould-check-box").on("click",".check-box",function(){  
+  var check='';
+  $(this).parent().parent().find('input[class=check-box]').each(function(index, el) {
+    if($(this).is(':checked')) {
+       check+=$(this).val()+',';
+    }
+  });
+  $(this).parent().parent().find('input[class=box-check]').val(check);  
+});  
 $('.change-status').click(function(event) {
  /*
       var targe-url=$(this).attr('targe-url'); 

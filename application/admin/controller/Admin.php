@@ -72,7 +72,7 @@ class Admin extends  BaseController
         }
         public function columns(){
             $data=array();
-            foreach(AdminModel::all() as $value){
+            foreach(AdminModel::all(['status'=>['>=',0]]) as $value){
               $data['list'][]=$value->toarray();
             }
             $this->assign('data',$data);
@@ -80,29 +80,13 @@ class Admin extends  BaseController
         }
 
         public function index(){
-            $menu=MenuModel::getVals();
-           
+            $menu=MenuModel::getVals(); 
             $admin=Session::get('admin');
             $group=GroupModel::get(2);
             $access=unserialize($group['access']);
-            /*
-            foreach($menu as $key=>$value){
-                    if(isset($access[$key])){
-                         foreach($menu[$key]["child"] as $k=>$v){
-                            
-                                if(!isset($access[$key][$k])){
-                                   unset($menu[$key][$k]);
-                                }
-                         }
-                    }else{
-                        unset($menu[$key]);
-                    }
-            }*/
             $this->assign('menu',$menu);
             return $this->fetch('index');
         }
-
-
         public function api_login(Request $request){
             $option['name']=$request->post('name');
             $option['password']=$request->post('password'); 
@@ -115,6 +99,10 @@ class Admin extends  BaseController
                     $this->returnInfo(0,'/index.php/admin/admin/index','登录成功');
             }    
         }
-
-
+        public function del(Request $request){
+              $admin=AdminModel::get($request->get('id'));
+              $admin->status=-1;
+              $admin->save();
+              $this->returnInfo(-1,'','删除');
+        }
 }

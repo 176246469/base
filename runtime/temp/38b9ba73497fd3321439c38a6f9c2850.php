@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\git\base\public/../application/admin\view\mould\columns.html";i:1501657115;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\git\base\public/../application/admin\view\mould\columns.html";i:1501829913;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
     <!DOCTYPE html>
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
@@ -32,7 +32,8 @@
                                         <th >ID</th>
                                         <th >名称</th>
                                         <th >表</th>
-                                        <th class="col-sm-1">操作</th>
+                                        <th >创建日期</th>
+                                        <th class="col-sm-2">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,8 +42,9 @@
                                         <td><?php echo $vo['id']; ?></td>
                                         <td><?php echo $vo['name']; ?></td>
                                          <td><?php echo $vo['table']; ?></td>
+                                         <td><?php echo date("Y-m-d",$vo['ct_time']); ?></td>
                                         <td >
-                                            <a   class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?id=<?php echo $vo['id']; ?>">修改</a>
+                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?id=<?php echo $vo['id']; ?>">管理</a>
                                             <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>

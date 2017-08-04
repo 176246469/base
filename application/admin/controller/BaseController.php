@@ -28,4 +28,8 @@ class BaseController extends \think\Controller
                     break;
         }
     }
+
+    public function changStatus(Request $request){
+
+    }
 }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:59:"D:\git\base\public/../application/admin\view\mould\put.html";i:1501660791;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:59:"D:\git\base\public/../application/admin\view\mould\put.html";i:1501813452;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
     <!DOCTYPE html>
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
@@ -14,6 +14,7 @@
     <link href="/static/H+ v4.1/css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="/static/H+ v4.1/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
   
+<script src="/static/js/mould.js"></script>
 <link href="/static/H+ v4.1/css/plugins/iCheck/custom.css" rel="stylesheet">
 </head>
 
@@ -38,16 +39,16 @@
                                 </div>
                              </div>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content" id="mould-check-box">
                             <div  class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" placeholder="请输入标题" class="form-control" name="fileds[title[]">
+                                    <input type="text" placeholder="请输入标题" class="form-control" name="fileds[title][]">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="请输入字段"  class="form-control" name="fileds[filed][]">
+                                    <input type="text" placeholder="请输入字段"  class="form-control" name="fileds[filed][]">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="默认值" class="form-control" name="fileds[value][]">
+                                    <input type="text" placeholder="默认值" class="form-control" name="fileds[value][]">
                                 </div>
                                 <div class="form-group">
                                        <select class="form-control  " name="fileds[type][]">
@@ -59,58 +60,23 @@
                                 <div class="form-group">
                                     <div class="form-control col-sm-2">
                                             <label>
-                                            <input type="checkbox" name="fileds[add][]" value="1"> 新增 </label>
+                                            <input type="checkbox"  class='check-box' value="add"> 新增 </label>
                                             <label>
-                                            <input type="checkbox" name="fileds[edit][]" value="2"> 编辑 </label>
+                                            <input type="checkbox"  class='check-box' value="edit"> 编辑 </label>
                                             <label>
-                                            <input type="checkbox" name="fileds[list][]" value="3"> 列表 </label>
+                                            <input type="checkbox"  class='check-box' value="list"> 列表 </label>
                                             <label>
-                                            <input type="checkbox" name="fileds[sreach][]" value="4">搜索</label>
+                                            <input type="checkbox"   class='check-box' value="sreach">搜索</label>
+                                             <input type="text"  class='box-check'  style='display:none'     name="fileds[check][]" >
                                     </div>
                                      <div class="form-control">
-                                            <a href="#"><i class="glyphicon glyphicon-plus"></i></a>
+                                             <a href="javascript:void(0);"  onclick="js_method(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
                                     </div> 
                                      <div class="form-control">
-                                            <a href="#"><i class="glyphicon glyphicon-minus"></i></a>
+                                            <a href="javascript:void(0);"  onclick="js_method(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
                                     </div>
                                 </div>
-                            </div> 
-                            <div  class="form-inline">
-                                <div class="form-group">
-                                    <input type="text" placeholder="请输入标题" class="form-control" name="fileds[title[]">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" placeholder="请输入字段"  class="form-control" name="fileds[filed][]">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" placeholder="默认值" class="form-control" name="fileds[value][]">
-                                </div>
-                                <div class="form-group">
-                                       <select class="form-control  " name="fileds[type][]">
-                                        <?php if(is_array($data['type']) || $data['type'] instanceof \think\Collection || $data['type'] instanceof \think\Paginator): $i = 0; $__LIST__ = $data['type'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                        <option value="<?php echo $key; ?>"><?php echo $vo; ?></option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-control col-sm-2">
-                                            <label>
-                                            <input type="checkbox" name="fileds[add][]" value="1"> 新增 </label>
-                                            <label>
-                                            <input type="checkbox" name="fileds[edit][]" value="2"> 编辑 </label>
-                                            <label>
-                                            <input type="checkbox" name="fileds[list][]" value="3"> 列表 </label>
-                                            <label>
-                                            <input type="checkbox" name="fileds[sreach][]" value="4">搜索</label>
-                                    </div>
-                                     <div class="form-control">
-                                            <a href="javascript:void(0);"  onclick="js_method(1)"><i class="glyphicon glyphicon-plus"></i></a>
-                                    </div> 
-                                     <div class="form-control">
-                                            <a href="javascript:void(0);"  onclick="js_method(1)"><i class="glyphicon glyphicon-minus"></i></a>
-                                    </div>
-                                </div>
-                            </div> 
+                            </div>
                             <!--
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -118,8 +84,6 @@
                                     <a  class="btn btn-white"  href="/index.php/admin/mould/columns">取消</a>
                                 </div>
                             </div>-->
-                        
-
                     </div>
                     <div class="ibox-content">
                             <div  class="form-inline">
