@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\git\base\public/../application/admin\view\admin\columns.html";i:1501566802;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:63:"D:\git\base\public/../application/admin\view\admin\columns.html";i:1502075062;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1501204646;}*/ ?>
     <!DOCTYPE html>
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
@@ -46,8 +46,8 @@
                                         <td><?php echo $vo['group']; ?></td>
                                         <td><?php echo $vo['status']; ?></td>
                                         <td >
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">修改</button>
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
+                                            <a  href="/index.php/admin/admin/update?id=<?php echo $vo['id']; ?>" class="btn btn-outline btn-default btn-xs ">修改</a>
+                                            <button  onclick="del('/index.php/admin/admin/del?id=<?php echo $vo['id']; ?>');" type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>
                                     <?php endforeach; endif; else: echo "" ;endif; ?>

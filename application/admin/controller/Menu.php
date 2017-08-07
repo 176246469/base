@@ -49,4 +49,8 @@ class Menu extends  BaseController
                 $this->returnInfo(0,'','');
             }            
         }
+        public function del(Request $request){
+              MenuModel::destroy($request->get('id'));
+              $this->returnInfo(0,'','删除');
+        }
 }

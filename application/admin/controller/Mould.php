@@ -91,16 +91,69 @@ class Mould extends  BaseController
 
         public function set(Request $request){
             if(empty($request->post())){
-                return $this->fetch('set');
+              $mould= MouldModel::get($request->get('id'));
+              $data['info']=$mould->toarray();
+              $data['info']['add']=unserialize($data['info']['add']);
+              $data['info']['edit']=unserialize($data['info']['edit']);
+              $data['info']['list']=unserialize($data['info']['list']);
+              $data['info']['sreach']=unserialize($data['info']['sreach']);
+              foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
+                  $data['fileds'][$value->id]=$value->toarray();
+              }
+              $this->assign('data',$data);
+              return $this->fetch('set');
             }else{
-                $this->returnInfo(0,'','');
+              $this->returnInfo(0,'','');
             }            
         }
 
         public function del(Request $request){
-              $admin=AdminModel::get($request->get('id'));
-              $admin->status=-1;
-              $admin->save();
+              $mould=MouldModel::get($request->get('id'));
+              MouldModel::destroy($request->get('id'));
+              MenuModel::destroy((['mould_id' =>$request->get('id')]));
+              FiledsModel::destroy((['mould_id' =>$request->get('id')]));
+              $sql='drop table '. $mould->table;
+              Db::execute($sql);
               $this->returnInfo(-1,'','删除');
         }
+
+
+    public frunction view_put(Request $request){
+      if(empty($request->post())){
+           $mould_id=$request->get('mould_id');
+              $mould= MouldModel::get($request->get('mould_id'));
+              $data['info']=$mould->toarray();
+              $data['info']['add']=unserialize($data['info']['add']);
+           foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
+              $data['fileds'][$value->id]=$value->toarray();
+           }
+              $this->assign('data',$data);
+              return $this->fetch('view_put');
+     }else{
+     }
+
+    }
+    public frunction view_update(){
+
+    }
+
+
+
+    public function view_columns(){
+      $where[]=['status','>',0];
+      $mould= MouldModel::get($request->get('mould_id'));
+      $data['info']=$mould->toarray();
+      $data['info']['list']=unserialize($data['info']['list']);
+
+      foreach($data['info']['list'] as $key=>$value){
+        //  $data['info']['list'][$key]['title']=
+      }
+      Db::table($mould->table)->where($where)->select();
+      return $this->fetch('columns');
+    }
+
+    public function view_del(){
+      $mould= MouldModel::get($request->get('mould_id'));
+      Db::table($mould->table)->where('mould_id', $request->get('mould_id'))->update(['status' => -1]);
+    }
 }

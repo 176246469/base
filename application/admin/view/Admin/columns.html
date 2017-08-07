@@ -31,8 +31,8 @@
                                         <td>{$vo.group}</td>
                                         <td>{$vo.status}</td>
                                         <td >
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">修改</button>
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
+                                            <a  href="/index.php/admin/admin/update?id={$vo.id}" class="btn btn-outline btn-default btn-xs ">修改</a>
+                                            <button  onclick="del('/index.php/admin/admin/del?id={$vo.id}');" type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>
                                     {/volist}

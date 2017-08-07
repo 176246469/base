@@ -13,7 +13,7 @@ class AdminModel  extends BaseModel
       if(empty($admin)) {
           return $admin;
       }else{
-        if($admin->password==trim($option['password'])){
+        if($admin->password==trim($option['password']) && $admin->status==1){
                   return $admin->toarray();
                 }else{
                   return '';

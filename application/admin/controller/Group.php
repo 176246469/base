@@ -9,7 +9,7 @@ class Group extends  BaseController
 {
         public function columns(){
             $data=array();
-            foreach(GroupModel::all() as $value){
+            foreach(GroupModel::all(['status'=>1]) as $value){
               $data['list'][]=$value->toarray();
             }
             $treelist=new TreeModel($data['list']);
@@ -62,5 +62,11 @@ class Group extends  BaseController
                 $group->save();
                 $this->returnInfo(0,'','');
             }            
+        }
+        public function del(Request $request){
+              $group=GroupModel::get($request->get('id'));
+              $group->status=-1;
+              $group->save();
+              $this->returnInfo(0,'','删除');
         }
 }

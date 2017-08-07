@@ -22,7 +22,42 @@ function boxConfirm(content,e){
     },e);
 }
   //boxMsg(1,777);
+/*验证*******************/
+/*
+function fcheck(obj){
+var form=$(obj).closest('form');
+form.find('.targe-check').each(function(index, el) {
+   var type= $(this).attr('targe-check-type');
+    var strs= new Array();  
+    strs=type.split("|"); //字符分割 
+    for (i=0;i<strs.length ;i++ ) { 
+        switch(strs[i])
+        {
+        case 'number':
+          
+          break;
+        case 2:
+           
+          break;
+        default:
+         
+        }
+    } 
 
+});
+*/
+
+}
+/********************/
+/*删除******/
+function del(url){ 
+alert(url);
+/*
+    boxConfirm('是否删除？',function(){
+          window.location.href=url;
+    });*/
+}
+/*******/
 var jc = {
     api: 'http://www.tp.com/',
     init: function() {

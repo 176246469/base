@@ -16,14 +16,8 @@ class Admin extends  BaseController
 
         public function quit(){
             Session::delete('admin');
-            $this->redirect('/index.php/admin/admin/login');
+            $this->check_session();
         }
-        public function check_session(){
-                if(empty(Session::get('admin'))){
-                     $this->redirect('/index.php/admin/admin/login');
-                }
-        }
-
         public function put(Request $request){
             if(empty($request->post())){
                 $data=array();
@@ -50,14 +44,14 @@ class Admin extends  BaseController
         public function update(Request $request){
             if(empty($request->post())){
                 $data=array();
-                 $data['info']=AdminModel::get($request->get('id'));
+                 $data['info']=AdminModel::get($request->get('id'))->toarray();
                 foreach(GroupModel::all() as $value){
                   $data['group'][]=$value->toarray();
                 }
                 $treelist=new TreeModel($data['group']);
                 $data['group']=$treelist->getChildren(0);
-                $this->assign('data',$data);
-                return $this->fetch('put');
+                $this->assign('data',$data); 
+                return $this->fetch('update');
             }else{
                 $param=$request->post();
                 $AdminModel= new AdminModel();
@@ -85,6 +79,7 @@ class Admin extends  BaseController
             $group=GroupModel::get(2);
             $access=unserialize($group['access']);
             $this->assign('menu',$menu);
+            $this->assign('admin',$admin);
             return $this->fetch('index');
         }
         public function api_login(Request $request){
@@ -103,6 +98,6 @@ class Admin extends  BaseController
               $admin=AdminModel::get($request->get('id'));
               $admin->status=-1;
               $admin->save();
-              $this->returnInfo(-1,'','删除');
+              $this->returnInfo(0,'','删除');
         }
 }
