@@ -5,11 +5,25 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>账户管理</h5>
+
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/admin/put">新增</a></h4>
+                            <form role="form" class="form-inline" action="" method="post">
+                                <div class="form-group">
+                                  关键词：<input type="text"   class="form-control" name="keys" value="{$param.keys|default=''}">
+                                </div>
+                                <div class="form-group"> 
+                                  状态：<select class="form-control m-b" name="status" >
+                                            <option value="">不限</option>
+                                            <option value="0" {eq name="$param.status" value="0"} checked="checked" {/eq}>审核中</option>
+                                            <option value="1" {eq name="$param.status" value="1"} checked="checked" {/eq}>正常</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-white" type="submit">搜索</button>
+                                <a   class="btn btn-outline btn-default " style="float:right;"  href="/index.php/admin/admin/put">新增</a>
+                            </form>
                         <div class="example">
                             <table data-toggle="table"  >
                                 <thead>
@@ -38,6 +52,7 @@
                                     {/volist}
                                 </tbody>
                             </table>
+                            {$page}
                         </div>
                     </div>
                 </div>

@@ -64,12 +64,37 @@ class Admin extends  BaseController
                 $this->returnInfo(0,'','修改成功');               
             }
         }
-        public function columns(){
-            $data=array();
-            foreach(AdminModel::all(['status'=>['>=',0]]) as $value){
-              $data['list'][]=$value->toarray();
+        public function columns(Request $request){
+            $data=$list=array();
+            $param=$request->post();
+            //搜索
+            if(!empty($param)){
+                Session::set(Request::instance()->controller().'-'.Request::instance()->action(),$param);
             }
-            $this->assign('data',$data);
+            //带条件搜索
+            if(!empty($request->get('page')) ){
+                $param=Session::get(Request::instance()->controller().'-'.Request::instance()->action());
+            //首次打开
+            }else{
+                $param['status']=$param['key']='';
+                Session::delete(Request::instance()->controller().'-'.Request::instance()->action());
+            }
+           //var_dump($param); exit();
+            //默认
+            $where['status']=['>=',0];
+            //条件搜索
+            if(isset($param['status']) && $param['status']!=''){
+                $where['status']=$param['status'];
+            }
+            if(isset($param['key']) && $param['key']!=''){
+                $where['username']=['like','%'.$param['key'].'%'];
+            }
+
+            $list=AdminModel::where($where)->paginate(2);
+            $page = $list->render();
+            $this->assign('param',$param);
+            $this->assign('page',$page);
+            $this->assign('data',array('list'=>$list));
             return $this->fetch('columns');
         }
 

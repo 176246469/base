@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:61:"D:\git\base\public/../application/admin\view\admin\index.html";i:1502076073;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1501204505;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:61:"D:\git\base\public/../application/admin\view\admin\index.html";i:1502076073;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1502174941;}*/ ?>
     <!DOCTYPE html>
 <html>
 <!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
@@ -13,6 +13,10 @@
     <link href="/static/H+ v4.1/css/animate.min.css" rel="stylesheet">
     <link href="/static/H+ v4.1/css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="/static/H+ v4.1/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="/static/H+ v4.1/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/H+ v4.1/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/H+ v4.1/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/static/js/common.js"></script>
   
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />

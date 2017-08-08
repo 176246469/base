@@ -1,5 +1,3 @@
-$(document).ready(function() {
-
 /*基于sweetalert消息提示框*/
 function boxMsg(status,content){
     //成功
@@ -21,6 +19,14 @@ function boxConfirm(content,e){
         closeOnConfirm: false
     },e);
 }
+/*删除******/
+function del(url){ 
+    boxConfirm('是否删除？',function(){
+          window.location.href=url;
+    });
+}
+/*******/
+$(document).ready(function() {
   //boxMsg(1,777);
 /*验证*******************/
 /*
@@ -45,19 +51,11 @@ form.find('.targe-check').each(function(index, el) {
     } 
 
 });
-*/
 
-}
+
+}*/
 /********************/
-/*删除******/
-function del(url){ 
-alert(url);
-/*
-    boxConfirm('是否删除？',function(){
-          window.location.href=url;
-    });*/
-}
-/*******/
+
 var jc = {
     api: 'http://www.tp.com/',
     init: function() {

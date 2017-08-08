@@ -118,7 +118,7 @@ class Mould extends  BaseController
         }
 
 
-    public frunction view_put(Request $request){
+    public function view_put(Request $request){
       if(empty($request->post())){
            $mould_id=$request->get('mould_id');
               $mould= MouldModel::get($request->get('mould_id'));
@@ -133,7 +133,7 @@ class Mould extends  BaseController
      }
 
     }
-    public frunction view_update(){
+    public function view_update(){
 
     }
 
@@ -144,16 +144,19 @@ class Mould extends  BaseController
       $mould= MouldModel::get($request->get('mould_id'));
       $data['info']=$mould->toarray();
       $data['info']['list']=unserialize($data['info']['list']);
-
-      foreach($data['info']['list'] as $key=>$value){
-        //  $data['info']['list'][$key]['title']=
+      foreach(FiledsModel::all(['mould_id'=>$request->get('mould_id')]) as $value ){
+                $fileds[$value->id]=$value->toarray();
       }
-      Db::table($mould->table)->where($where)->select();
-      return $this->fetch('columns');
+      foreach($data['info']['list'] as $key=>$value){
+            $data['title'][]=$fileds[$key];
+      }
+      $data['list']=Db::table($mould->table)->where($where)->select();
+      
+      return $this->fetch('view_columns');
     }
 
     public function view_del(){
       $mould= MouldModel::get($request->get('mould_id'));
-      Db::table($mould->table)->where('mould_id', $request->get('mould_id'))->update(['status' => -1]);
+      Db::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
     }
 }
