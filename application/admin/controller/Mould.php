@@ -114,7 +114,7 @@ class Mould extends  BaseController
               FiledsModel::destroy((['mould_id' =>$request->get('id')]));
               $sql='drop table '. $mould->table;
               Db::execute($sql);
-              $this->returnInfo(-1,'','删除');
+              $this->returnInfo(0,'','删除');
         }
 
 
@@ -158,5 +158,6 @@ class Mould extends  BaseController
     public function view_del(){
       $mould= MouldModel::get($request->get('mould_id'));
       Db::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
+
     }
 }

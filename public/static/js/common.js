@@ -28,9 +28,7 @@ function del(url){
             url:  url,
             dataType: "JSON",
             success: function(result) {
-                      if(result.data!=''){
-                          window.location.href=result.data;
-                      }
+                        window.location.reload();
             }
         });
          

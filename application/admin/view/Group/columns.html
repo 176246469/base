@@ -29,7 +29,7 @@
                                          <td>{$vo.remark}</td>
                                         <td >
                                             <a   class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/group/update?id={$vo.id}">修改</a>
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
+                                            <button type="button" onclick="del('/index.php/admin/menu/del?id={$vo.id}');" class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>
                                     {/volist}
