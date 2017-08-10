@@ -183,7 +183,7 @@ function EchoData($res, $numfields, $numrows)
 				$_POST["q"][$i] = base64_decode($_POST["q"][$i]);
 		}
 		
-		if (!function_exists("mysql_connect")) {
+		if (!function_exists("mysqli_connect")) {
 			EchoHeader(203);
 			echo GetBlock("MySQL not supported on the server");
 			exit();
@@ -192,7 +192,7 @@ function EchoData($res, $numfields, $numrows)
 		$errno_c = 0;
 		$hs = $_POST["host"];
 		if( $_POST["port"] ) $hs .= ":".$_POST["port"];
-		$conn = mysql_connect($hs, $_POST["login"], $_POST["password"]);
+		$conn = mysqli_connect($hs, $_POST["login"], $_POST["password"]);
 		$errno_c = mysql_errno();
 		if(($errno_c <= 0) && ( $_POST["db"] != "" )) {
 			$res = mysql_select_db( $_POST["db"], $conn);
@@ -251,7 +251,7 @@ function doSystemTest()
 		echo ($succ)? "class=\"TestSucc\">$resStr[0]</td></tr>" : "class=\"TestFail\">$resStr[1]</td></tr>";
 	}
 	output("PHP version >= 4.0.5", phpversion_int() >= 40005, array("Yes", "No"));
-	output("mysql_connect() available", function_exists("mysql_connect"), array("Yes", "No"));
+	output("mysqli_connect() available", function_exists("mysqli_connect"), array("Yes", "No"));
 	if (phpversion_int() >= 40302 && substr($_SERVER["SERVER_SOFTWARE"], 0, 6) == "Apache" && function_exists("apache_get_modules")){
 		if (in_array("mod_security2", apache_get_modules()))
 			output("Mod Security 2 installed", false, array("No", "Yes"));
