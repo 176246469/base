@@ -22,7 +22,18 @@ function boxConfirm(content,e){
 /*删除******/
 function del(url){ 
     boxConfirm('是否删除？',function(){
-          window.location.href=url;
+
+        $.ajax({
+            type: 'POST',
+            url:  url,
+            dataType: "JSON",
+            success: function(result) {
+                      if(result.data!=''){
+                          window.location.href=result.data;
+                      }
+            }
+        });
+         
     });
 }
 /*******/
