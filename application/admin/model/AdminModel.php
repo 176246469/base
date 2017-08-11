@@ -10,10 +10,12 @@ class AdminModel  extends BaseModel
 
     public function login($option){
       $admin=  self::get(['name'=>trim($option['name'])]);
+      
       if(empty($admin)) {
-          return $admin;
+          return '' ;
       }else{
-        if($admin->password==trim($option['password']) && $admin->status==1){
+     
+        if($admin->password==trim($option['password']) && $admin->getData('status')==1){
                   return $admin->toarray();
                 }else{
                   return '';

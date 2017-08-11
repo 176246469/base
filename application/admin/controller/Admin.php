@@ -99,9 +99,10 @@ class Admin extends  BaseController
         }
 
         public function index(){
+            $this->check_session();
             $menu=MenuModel::getVals(); 
             $admin=Session::get('admin');
-            $group=GroupModel::get(2);
+            $group=GroupModel::get($admin['group']);
             $access=unserialize($group['access']);
             $this->assign('menu',$menu);
             $this->assign('admin',$admin);
