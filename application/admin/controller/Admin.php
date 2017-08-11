@@ -125,4 +125,7 @@ class Admin extends  BaseController
               $admin->save();
               $this->returnInfo(0,'','删除');
         }
+        public function upload(Request $request){
+
+        }
 }

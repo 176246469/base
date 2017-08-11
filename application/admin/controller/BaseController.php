@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Request;
+use think\Session;
 class BaseController extends \think\Controller
 {
    protected function initialize(){

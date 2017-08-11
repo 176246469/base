@@ -9,7 +9,7 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/put">新增</a></h4>
+                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/view_put?mould_id={$data.info.id}">新增</a></h4>
                         <div class="example">
                             <table data-toggle="table"  >
                                 <thead>
@@ -30,10 +30,10 @@
                                           <td >{$vo[$vo1.filed]}</td>
                                          {/volist}
                                         <td >
-                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?id={$vo.id}">管理</a>
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
+                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/view_update?id={$vo.id}">管理</a>
+                                            <button type="button"  onclick="del('/index.php/admin/mould/view_del?mould_id={$data.info.id}&id={$vo.id}');"   class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
-                                    </tr>
+                                    </tr>s
                                     {/volist}
                                     {/notempty}
                                 </tbody>

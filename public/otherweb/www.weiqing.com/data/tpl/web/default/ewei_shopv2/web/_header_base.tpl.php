@@ -1,4 +1,4 @@
-<?php defined('IN_IA') or exit('Access Denied');?><?php  $copyright = m('common')->getCopyright(true)?>
+<?php defined('IN_IA') or exit('Access Denied');?>﻿<?php  $copyright = m('common')->getCopyright(true)?>
 <!DOCTYPE html>
 <html lang="zh-cn">
     <head>
@@ -76,6 +76,6 @@
 		    <?php  if(!empty($copyright) && !empty($copyright['logo'])) { ?>
 		    <a style='padding:0;overflow:hidden;'><img src="<?php  echo tomedia($copyright['logo'])?>" style='width:150px;height:50px;' /></a>
 		    <?php  } else { ?>
-		    <a class="navbar-brand" href="<?php  echo webUrl()?>">小茵人人店</a>
+		    <a class="navbar-brand" href="<?php  echo webUrl()?>">安佳网络</a>
 		    <?php  } ?>
 		</div>
