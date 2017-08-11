@@ -8,7 +8,7 @@
  */
 date_default_timezone_set("PRC");
 require_once 'JSON.php';
-
+require_once 'image.class.php';
 $php_path = dirname(__FILE__) . '/';
 $php_url = dirname($_SERVER['PHP_SELF']) . '/';
 
@@ -124,7 +124,12 @@ if (empty($_FILES) === false) {
 	}
 	@chmod($file_path, 0644);
 	$file_url = $save_url . $new_file_name;
-
+	/*$image = new Image($file_url);  
+	$image->percent = 0.2;  
+	$image->openImage();  
+	$image->thumpImage();  
+	$image->showImage();  
+	$image->saveImage($file_url);  */
 	header('Content-type: text/html; charset=UTF-8');
 	$json = new Services_JSON();
 	echo $json->encode(array('error' => 0, 'url' => $file_url));
