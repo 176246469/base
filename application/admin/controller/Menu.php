@@ -46,7 +46,7 @@ class Menu extends  BaseController
                 $menu->fa=$param['fa'];
                 $menu->pid=$param['pid'];
                 $menu->save();
-                $this->returnInfo(0,'','');
+                $this->returnInfo(0,'','修改成功');
             }            
         }
         public function del(Request $request){

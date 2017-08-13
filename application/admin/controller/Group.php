@@ -60,7 +60,7 @@ class Group extends  BaseController
                 $group->status=$param['status'];
                 $group->access=serialize($param['access']);
                 $group->save();
-                $this->returnInfo(0,'','');
+                $this->returnInfo(0,'','修改成功');
             }            
         }
         public function del(Request $request){
