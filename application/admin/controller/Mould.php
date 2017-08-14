@@ -37,7 +37,7 @@ class Mould extends  BaseController
             }
              $mould  =new  MouldModel();
              $mould->name=$post['name'];
-             $mould->table=$post['table'];
+             $mould->table='ext_'.$post['table'];
              $mould->ct_time=time();
              $mould->save();
              $sql='CREATE TABLE `'. $mould->table.'` ( `id` int(11) NOT NULL AUTO_INCREMENT,';
@@ -108,6 +108,7 @@ class Mould extends  BaseController
         }
 
         public function del(Request $request){
+          
               $mould=MouldModel::get($request->get('id'));
               MouldModel::destroy($request->get('id'));
               MenuModel::destroy((['mould_id' =>$request->get('id')]));
@@ -120,26 +121,27 @@ class Mould extends  BaseController
     //模型新增
     public function view_put(Request $request){
       if(empty($request->post())){
-           $mould_id=$request->get('mould_id');
+             $mould_id=$request->get('mould_id');
               $mould= MouldModel::get($request->get('mould_id'));
               $data['info']=$mould->toarray();
               $data['info']['add']=unserialize($data['info']['add']);
-           foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
-              $data['fileds'][$value->id]=$value->toarray();
-              //多选
-              if($value->type==2 || $value->type==3){
-                $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
-              }
-           } 
+               foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
+                  $data['fileds'][$value->id]=$value->toarray();
+                  //多选
+                  if($value->type==2 || $value->type==3){
+                    $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
+                  }
+               } 
               $this->assign('data',$data);
               return $this->fetch('view_put');
      }else{
         $mould= MouldModel::get($request->get('mould_id'));
         Db::table($mould->table)->insert($request->post());
+        $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
      }
     }
     //模型修改
-    public function view_update(){
+    public function view_update(Request $request){
       if(empty($request->post())){
         $mould_id=$request->get('mould_id');
         $mould_tab_id=$request->get('mould_tab_id');
@@ -153,7 +155,7 @@ class Mould extends  BaseController
               if($value->type==2 || $value->type==3){
                 $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
               }
-             $data['fileds'][$value->id]['filed_value']=$mould->
+             //$data['fileds'][$value->id]['filed_value']=$mould->
            } 
               $this->assign('data',$data);
               return $this->fetch('view_update');
@@ -173,16 +175,25 @@ class Mould extends  BaseController
       foreach(FiledsModel::all(['mould_id'=>$request->get('mould_id')]) as $value ){
                 $fileds[$value->id]=$value->toarray();
       }
-      foreach($data['info']['list'] as $key=>$value){
-            $data['title'][]=$fileds[$key];
+      if(!empty($data['info']['list'])){
+        foreach($data['info']['list'] as $key=>$value){
+              $data['title'][]=$fileds[$key];
+        }        
+      }else{
+        $data['info']['list']=array();
+        $data['title']=array();
       }
       $data['list']=Db::table($mould->table)->where($where)->select();
       $this->assign('data',$data);
       return $this->fetch('view_columns');
     }
+
     public function view_del(Request $request){
       $mould= MouldModel::get($request->get('mould_id'));
-      Db::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
+      var_dump($request->get());
+      exit();
+      \think\Db::table($mould->table)->select();
+    //  DB::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
        $this->returnInfo(0,'','删除');
     }
 }

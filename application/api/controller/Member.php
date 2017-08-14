@@ -8,7 +8,8 @@ use app\api\model\MemberModel;
 class Member extends  BaseController
 {
 
-        public function quit(){
+        public function quit(Request $request){
+            //MemberModel::get($request->post('id'));
             Session::delete('admin');
             $this->check_session();
         }

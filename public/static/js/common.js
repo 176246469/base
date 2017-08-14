@@ -1,3 +1,5 @@
+
+
 /*基于sweetalert消息提示框*/
 function boxMsg(status,content){
     //成功
@@ -21,18 +23,20 @@ function boxConfirm(content,e){
 }
 /*删除******/
 function del(url){ 
+var string_a=url.replace("=",":").replace("&",";");
+var json="{"+string_a+"}";//json格式的字符串
+var json=eval("("+json+")");//json是对象了
+/*
     boxConfirm('是否删除？',function(){
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url:  url,
-            dataType: "JSON",
+            data:  data,
             success: function(result) {
-                        window.location.reload();
             }
         });
-         
-    });
+});*/
 }
 /*******/
 $(document).ready(function() {

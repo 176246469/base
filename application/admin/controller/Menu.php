@@ -27,7 +27,7 @@ class Menu extends  BaseController
                 $menu->fa=$param['fa'];
                 $menu->pid=$param['pid'];
                 $menu->save();
-                $this->returnInfo(0,'','新增成功');
+                $this->returnInfo(0,'/index.php/admin/menu/columns','新增成功');
             }            
         }
 
@@ -35,7 +35,7 @@ class Menu extends  BaseController
             if(empty($request->post())){
                 $group=MenuModel::get($request->get('id'));
                 $data=$group->toarray();
-                $data['menu']=MenuModel::getVals((0,false);
+                $data['menu']=MenuModel::getVals(0,false);
                 $this->assign('data',$data);
                 return $this->fetch('update');
             }else{
@@ -46,7 +46,7 @@ class Menu extends  BaseController
                 $menu->fa=$param['fa'];
                 $menu->pid=$param['pid'];
                 $menu->save();
-                $this->returnInfo(0,'','修改成功');
+                $this->returnInfo(0,'/index.php/admin/menu/columns','修改成功');
             }            
         }
         public function del(Request $request){

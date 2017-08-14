@@ -33,9 +33,9 @@ class Group extends  BaseController
                 $group->pid=$param['pid'];
                 $group->status=$param['status'];
                 $group->name=$param['name'];
-                $group->access=serialize($param['access']);
+                $group->access=(isset($param['access']) ? serialize($param['access']) : '') ;
                 $group->save();
-                $this->returnInfo(0,'','新增成功');
+                $this->returnInfo(0,'/index.php/admin/group/columns','新增成功');
             }            
         }
 
@@ -43,7 +43,7 @@ class Group extends  BaseController
             if(empty($request->post())){
                 $group=GroupModel::get($request->get('id'));
                 $data['info']=$group->toarray();
-                $data['access']=unserialize($data['access']);
+                $data['access']=unserialize($data['info']['access']);
                 foreach(GroupModel::all() as $value){
                   $data['list'][]=$value->toarray();
                 }
@@ -58,9 +58,10 @@ class Group extends  BaseController
                 $group->name=$param['name'];
                 $group->pid=$param['pid'];
                 $group->status=$param['status'];
-                $group->access=serialize($param['access']);
+                $group->remark=$param['remark'];
+                $group->access=(isset($param['access']) ? serialize($param['access']) : '') ;
                 $group->save();
-                $this->returnInfo(0,'','修改成功');
+                $this->returnInfo(0,'/index.php/admin/group/columns','修改成功');
             }            
         }
         public function del(Request $request){

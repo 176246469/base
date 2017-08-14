@@ -13,6 +13,12 @@ function js_method(obj,i){
   $(document).ready(function() {
 
 
-
+    $(".input-group.date").datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: !1,
+        forceParse: !1,
+        calendarWeeks: !0,
+        autoclose: !0
+    })
  });
 

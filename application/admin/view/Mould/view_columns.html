@@ -33,9 +33,9 @@
                                          {/volist}
                                         <td >
                                             {notempty name="data.info.edit"}
-                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?mould_id={$data.info.id}&id={$vo.id}">管理</a>
+                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/view_update?mould_id={$data.info.id}&id={$vo.id}">管理</a>
                                              {/notempty}
-                                            <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
+                                            <button type="button" onclick="del('/index.php/admin/mould/view_del/mould_id={$data.info.id}&id={$vo.id}');"  class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>
                                     {/volist}
@@ -53,6 +53,7 @@
     <script src="/static/H+ v4.1/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="/static/H+ v4.1/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/static/H+ v4.1/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+     <script src="/static/H+ v4.1/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 </body>
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:06 GMT -->
 </html>

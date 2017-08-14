@@ -79,9 +79,10 @@
                                             </div>
                                  {/case}
                                  {case value="6"}
-                                            <div class="col-sm-10">
-                                                    <input type="text" id="url3" name="{$data['fileds'][$key]['filed']}"  /> <input type="button" id="image3" value="选择图片" />
-                                            </div>
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" value="2014-11-11">
+                                    </div>
                                  {/case}
                                  {case value="8"}
                                             <div class="col-sm-10">
@@ -110,6 +111,7 @@
     {include file="public/footer" /} 
     <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
     <script src="/static/H+ v4.1/js/plugins/iCheck/icheck.min.js"></script>
+     <script src="/static/H+ v4.1/js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script>
         $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
     </script>

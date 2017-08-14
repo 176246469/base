@@ -37,7 +37,7 @@ class Admin extends  BaseController
                 $AdminModel->group= $param['group'];
                 $AdminModel->status=1;
                 $AdminModel->save();
-                $this->returnInfo(0,'','新增成功');               
+                $this->returnInfo(0,'/index.php/admin/admin/columns','新增成功');               
             }
         }
 
@@ -61,7 +61,7 @@ class Admin extends  BaseController
                 $AdminModel->group= $param['group'];
                 $AdminModel->status=1;
                 $AdminModel->save();
-                $this->returnInfo(0,'','修改成功');               
+                $this->returnInfo(0,'/index.php/admin/admin/columns','修改成功');               
             }
         }
         public function columns(Request $request){
