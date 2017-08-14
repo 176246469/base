@@ -83,7 +83,7 @@ class Mould extends  BaseController
                 $mould->save();
                 $sql.="`".$FiledsModel->filed."` ".$res[1]." DEFAULT NULL COMMENT '".$FiledsModel->title."',";
              }
-                $sql.=" `status` tinyint(1) DEFAULT '1' COMMENT '删除-1，正常 1',`status` tinyint(1) DEFAULT '1' COMMENT '删除-1，正常 1', PRIMARY KEY (`id`) ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
+                $sql.=" `status` tinyint(1) DEFAULT '1' COMMENT '删除-1，正常 1', PRIMARY KEY (`id`) ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
                 Db::execute($sql);
                 $this->returnInfo(0,'/index.php/admin/mould/columns','保存成功');       
             }      
