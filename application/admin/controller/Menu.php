@@ -17,7 +17,7 @@ class Menu extends  BaseController
 
         public function put(Request $request){
             if(empty($request->post())){
-                $this->assign('data',array('menu'=>MenuModel::getVals()));
+                $this->assign('data',array('menu'=>MenuModel::getVals(0,false)));
                 return $this->fetch('put');
             }else{
                 $param=$request->post();
@@ -35,7 +35,7 @@ class Menu extends  BaseController
             if(empty($request->post())){
                 $group=MenuModel::get($request->get('id'));
                 $data=$group->toarray();
-                $data['menu']=MenuModel::getVals();
+                $data['menu']=MenuModel::getVals((0,false);
                 $this->assign('data',$data);
                 return $this->fetch('update');
             }else{

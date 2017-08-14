@@ -117,7 +117,7 @@ class Mould extends  BaseController
               $this->returnInfo(0,'','删除');
         }
 
-
+    //模型新增
     public function view_put(Request $request){
       if(empty($request->post())){
            $mould_id=$request->get('mould_id');
@@ -138,11 +138,33 @@ class Mould extends  BaseController
         Db::table($mould->table)->insert($request->post());
      }
     }
+    //模型修改
     public function view_update(){
+      if(empty($request->post())){
+        $mould_id=$request->get('mould_id');
+        $mould_tab_id=$request->get('mould_tab_id');
+        $mould= MouldModel::get($request->get('mould_id'));
+        $tab_info=  Db::table($mould->table)->where('id',$mould_tab_id)->find();
+        $data['info']=$mould->toarray();
+        $data['info']['edit']=unserialize($data['info']['edit']);
+           foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
+              $data['fileds'][$value->id]=$value->toarray();
+              //多选
+              if($value->type==2 || $value->type==3){
+                $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
+              }
+             $data['fileds'][$value->id]['filed_value']=$mould->
+           } 
+              $this->assign('data',$data);
+              return $this->fetch('view_update');
 
-
+      }else{
+        $mould= MouldModel::get($request->get('mould_id'));
+        $mould_tab_id=$request->get('mould_tab_id');
+        Db::table($mould->table)->where('id',$mould_tab_id)->update($request->post());
+      }
     }
-
+    //模型列表
     public function view_columns(Request $request){
       $where['status']=['>',0];
       $mould= MouldModel::get($request->get('mould_id'));
@@ -159,8 +181,8 @@ class Mould extends  BaseController
       return $this->fetch('view_columns');
     }
     public function view_del(Request $request){
-      //$mould= MouldModel::get($request->get('mould_id'));
-      //Db::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
-       //$this->returnInfo(0,'','删除');
+      $mould= MouldModel::get($request->get('mould_id'));
+      Db::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
+       $this->returnInfo(0,'','删除');
     }
 }

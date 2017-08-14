@@ -4,12 +4,14 @@
 <body class="gray-bg">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>模型管理</h5>
+                <h5>{$data.info.name}管理</h5>
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/view_put">新增</a></h4>
+                    {notempty name="data.info.add"}
+                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/view_put?mould_id={$data.info.id}">新增</a></h4>
+                        {/notempty}
                         <div class="example">
                             <table data-toggle="table"  >
                                 <thead>
@@ -30,7 +32,9 @@
                                           <td >{$vo[$vo1.filed]}</td>
                                          {/volist}
                                         <td >
-                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?id={$vo.id}">管理</a>
+                                            {notempty name="data.info.edit"}
+                                            <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/update?mould_id={$data.info.id}&id={$vo.id}">管理</a>
+                                             {/notempty}
                                             <button type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>

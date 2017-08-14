@@ -8,10 +8,10 @@ class MenuModel  extends BaseModel
 
    protected $table = 'menu';
 
-    public  static function getVals($pid=0)
+    public  static function getVals($pid=0,$cache=true)
     {    
         $data=Cache::get('menu');
-        if(!$data){
+        if(!$data || $cache!==true){
           if($pid==0){
             foreach(self::all(['pid' => $pid]) as $value){
                 foreach(self::all(['pid' => $value->id]) as $val){

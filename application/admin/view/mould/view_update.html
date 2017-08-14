@@ -1,0 +1,119 @@
+    {include file="public/header" /} 
+<link rel="stylesheet" href="/static/js/plugins/editor/themes/default/default.css" />
+<script src="/static/js/plugins/editor/kindeditor-all.js"></script>
+<script src="/static/js/plugins/editor/lang/zh_CN.js"></script>
+<link href="/static/H+ v4.1/css/plugins/iCheck/custom.css" rel="stylesheet">
+        <script>
+            KindEditor.ready(function(K) {
+                /**图片*******/
+                var editor = K.editor({
+                    allowFileManager : true
+                });
+                /**富文本**/
+                var editor_text;
+                editor_text = K.create('textarea[name="content"]', {
+                    allowFileManager : true
+                });
+
+                K('#image3').click(function() {
+                    editor.loadPlugin('image', function() {
+                        editor.plugin.imageDialog({
+                            showRemote : false,
+                            imageUrl : K('#url3').val(),
+                            clickFn : function(url, title, width, height, border, align) {
+                                K('#url3').val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{$data.info.name}管理 <small>编辑</small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal" action="/index.php/admin/mould/view_update?mould_id={$data.info.id}">
+                        {volist  name='data.info.add' id="vo"}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"  >{$data['fileds'][$key]['title']}</label>
+                            {switch name="$data['fileds'][$key]['type']" }
+                                {case value="1"}
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="{$data['fileds'][$key]['filed']}"  value="{$data['fileds'][$key]['value']}">
+                                            </div>
+                                {/case}
+                                 {case value="2"}
+                                            <div class="col-sm-10">
+                                                    <select class="form-control m-b" name="{$data['fileds'][$key]['filed']}">
+                                                     {volist  name="$data['fileds'][$key]['value']" id="select_val"}
+                                                        <option value="{$select_val}">{$select_val}</option>
+                                                     {/volist}
+                                                    </select>
+                                            </div>
+                                 {/case}
+                                 {case value="3"}
+                                            <div class="col-sm-10">
+                                                  
+                                                     {volist  name="$data['fileds'][$key]['value']" id="select_val"}
+                                                       <label class="checkbox-inline">
+                                                        <input type="checkbox" value="{$select_val}" >{$select_val}</label>
+                                                     {/volist}
+                                                 
+                                            </div>
+                                 {/case}
+                                 {case value="4"}
+                                            <div class="col-sm-10">
+                                                <textarea   class="form-control m-b" name="{$data['fileds'][$key]['filed']}"  >{$data['fileds'][$key]['value']}</textarea >
+                                            </div>
+                                 {/case}
+                                 {case value="5"}
+                                            <div class="col-sm-10">
+                                                <textarea name="content" name="{$data['fileds'][$key]['filed']}" style="width:800px;height:400px;visibility:hidden;">{$data['fileds'][$key]['value']}</textarea >
+                                            </div>
+                                 {/case}
+                                 {case value="6"}
+                                            <div class="col-sm-10">
+                                                    <input type="text" id="url3" name="{$data['fileds'][$key]['filed']}"  /> <input type="button" id="image3" value="选择图片" />
+                                            </div>
+                                 {/case}
+                                 {case value="8"}
+                                            <div class="col-sm-10">
+                                                    <input type="text" id="url3" name="{$data['fileds'][$key]['filed']}" /> <input type="button" id="image3" value="选择图片" />
+                                            </div>
+                                 {/case}
+                                 {default /}
+                            {/switch}
+                                        </div>
+                            {/volist}
+                        <!---->
+                            <div class="hr-line-dashed"></div>
+                        <!---->
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name='mould_tab_id' value="{$data.info.id}">
+                                    <input class="btn btn-primary" type="button"  id="submit"  value="保存">
+                                    <a  class="btn btn-white"  href="/index.php/admin/mould/view_columns?mould_id={$data.info.id}">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="public/footer" /} 
+    <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
+    <script src="/static/H+ v4.1/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+</body>
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+</html>
