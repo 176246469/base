@@ -1,4 +1,24 @@
-{include file="public/header" /}
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:59:"D:\git\base\public/../application/admin\view\mould\set.html";i:1502787795;s:63:"D:\git\base\public/../application/admin\view\public\header.html";i:1502696081;s:63:"D:\git\base\public/../application/admin\view\public\footer.html";i:1502174942;}*/ ?>
+<!DOCTYPE html>
+<html>
+<!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 后台登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/H+ v4.1/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/animate.min.css" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/static/H+ v4.1/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <script src="/static/H+ v4.1/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/H+ v4.1/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/H+ v4.1/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/static/js/common.js"></script>
+ 
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeIn">
@@ -32,19 +52,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 {volist name="data.info.add" id="vo"}
+                                 <?php if(is_array($data['info']['add']) || $data['info']['add'] instanceof \think\Collection || $data['info']['add'] instanceof \think\Paginator): $i = 0; $__LIST__ = $data['info']['add'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                     <tr>
-                                        <td>{$key}</td>
-                                        <td>{$data["fileds"][$key]['title']}</td>
-                                         <td>{$data["fileds"][$key]['filed']}</td>
-                                         <td>{$data["fileds"][$key]['type']}</td>
-                                         <td>{$data["fileds"][$key]['value']}</td>
+                                        <td><?php echo $key; ?></td>
+                                        <td><?php echo $data["fileds"][$key]['title']; ?></td>
+                                         <td><?php echo $data["fileds"][$key]['filed']; ?></td>
+                                         <td><?php echo $data["fileds"][$key]['type']; ?></td>
+                                         <td><?php echo $data["fileds"][$key]['value']; ?></td>
                                         <td>
                                             <div class="col-sm-10">
-                                             {volist name="validate" id="vo2"}
+                                             <?php if(is_array($validate) || $validate instanceof \think\Collection || $validate instanceof \think\Paginator): $i = 0; $__LIST__ = $validate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo2): $mod = ($i % 2 );++$i;?>
                                             <label class="checkbox-inline">
-                                            <input type="checkbox" value="option1" id="inlineCheckbox1" value="{$key}">{$vo2[0]}</label>
-                                             {/volist}
+                                            <input type="checkbox" value="option1" id="inlineCheckbox1" value="<?php echo $key; ?>"><?php echo $vo2[0]; ?></label>
+                                             <?php endforeach; endif; else: echo "" ;endif; ?>
                                             </div>
                                         </td>
                                         <td>
@@ -57,7 +77,7 @@
                                             <a  class="btn btn-outline btn-default btn-xs "  href="">移除</a>
                                         </td>
                                     </tr>
-                                    {/volist}
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
                                 </tbody>
                             </table>
                             </div>
@@ -88,7 +108,9 @@
             </div>
         </div>
     </div>
-    {include file="public/footer" /} 
+    
+
+ 
     <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
 </body>
 <!-- Mirrored from www.zi-han.net/theme/hplus/tabs_panels.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:53 GMT -->

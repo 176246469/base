@@ -100,6 +100,8 @@ class Mould extends  BaseController
               foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
                   $data['fileds'][$value->id]=$value->toarray();
               }
+              //var_dump($data);exit();
+                $this->assign('validate',FiledsModel::$validate2);
               $this->assign('data',$data);
               return $this->fetch('set');
             }else{
@@ -190,7 +192,7 @@ class Mould extends  BaseController
         $data['info']['list']=array();
         $data['title']=array();
       }
-      $list=Db::table($mould->table)->where($where)->paginate(2);
+      $list=Db::table($mould->table)->where($where)->paginate(15);
       $data['list']=$list;
       $page = $list->render();
       $this->assign('page', $page);
