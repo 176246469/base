@@ -190,7 +190,10 @@ class Mould extends  BaseController
         $data['info']['list']=array();
         $data['title']=array();
       }
-      $data['list']=Db::table($mould->table)->where($where)->select();
+      $list=Db::table($mould->table)->where($where)->paginate(2);
+      $data['list']=$list;
+      $page = $list->render();
+      $this->assign('page', $page);
       $this->assign('data',$data);
       return $this->fetch('view_columns');
     }

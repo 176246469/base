@@ -42,6 +42,7 @@
                                     {/notempty}
                                 </tbody>
                             </table>
+                              {$page}
                         </div>
                     </div>
                 </div>
@@ -54,6 +55,13 @@
     <script src="/static/H+ v4.1/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="/static/H+ v4.1/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
      <script src="/static/H+ v4.1/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.pagination  a').each(function(index, el) {
+                $(this).attr('href',$(this).attr('href')+'&mould_id={$data.info.id}');
+            });
+        });
+    </script>
 </body>
 <!-- Mirrored from www.zi-han.net/theme/hplus/table_bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:06 GMT -->
 </html>
