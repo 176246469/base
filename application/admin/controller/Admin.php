@@ -54,10 +54,10 @@ class Admin extends  BaseController
                 return $this->fetch('update');
             }else{
                 $param=$request->post();
-                $AdminModel= new AdminModel();
+                $AdminModel= AdminModel::get($request->post('id'));
                 $AdminModel->name=$param['name'];
                 $AdminModel->username=$param['username'];
-                $AdminModel->password= $param['password'];
+                //$AdminModel->password= $param['password'];
                 $AdminModel->group= $param['group'];
                 $AdminModel->status=1;
                 $AdminModel->save();

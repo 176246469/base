@@ -18,25 +18,32 @@ function boxConfirm(content,e){
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "删除",
-        closeOnConfirm: false
+        cancelButtonText:"取消",
+        closeOnConfirm: true
     },e);
 }
 /*删除******/
 function del(url){ 
-var string_a=url.replace("=",":").replace("&",";");
-var json="{"+string_a+"}";//json格式的字符串
-var json=eval("("+json+")");//json是对象了
-/*
+  var strs1= new Array();
+  var strs2= new Array();
+  var string_a="";
+  strs1=url.split("?");
+  strs2=strs1[1].split("&");
+  for(var i=0;i<strs2.length;i++){
+  string_a= string_a+strs2[i].replace("=",":")+',';
+  }
+  var json="{"+string_a+"}";//json格式的字符串
+  var json=eval("("+json+")");
     boxConfirm('是否删除？',function(){
-
         $.ajax({
             type: 'GET',
-            url:  url,
-            data:  data,
+            url:  strs1[0],
+            data:  json,
             success: function(result) {
+              window.location.reload();
             }
         });
-});*/
+});
 }
 /*******/
 $(document).ready(function() {

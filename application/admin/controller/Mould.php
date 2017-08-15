@@ -136,6 +136,7 @@ class Mould extends  BaseController
               return $this->fetch('view_put');
      }else{
         $mould= MouldModel::get($request->get('mould_id'));
+
         Db::table($mould->table)->insert($request->post());
         $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
      }
@@ -144,26 +145,32 @@ class Mould extends  BaseController
     public function view_update(Request $request){
       if(empty($request->post())){
         $mould_id=$request->get('mould_id');
-        $mould_tab_id=$request->get('mould_tab_id');
+        $id=$request->get('id');
         $mould= MouldModel::get($request->get('mould_id'));
-        $tab_info=  Db::table($mould->table)->where('id',$mould_tab_id)->find();
+        $tab_info=  Db::table($mould->table)->where('id',$id)->find();
         $data['info']=$mould->toarray();
         $data['info']['edit']=unserialize($data['info']['edit']);
+
            foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
               $data['fileds'][$value->id]=$value->toarray();
               //多选
               if($value->type==2 || $value->type==3){
                 $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
               }
-             //$data['fileds'][$value->id]['filed_value']=$mould->
+             $data['fileds'][$value->id]['filed_value']=$tab_info[$value->filed];
            } 
+             //var_dump($data['fileds']);
               $this->assign('data',$data);
+              $this->assign('tab_info',$tab_info);
               return $this->fetch('view_update');
 
       }else{
         $mould= MouldModel::get($request->get('mould_id'));
-        $mould_tab_id=$request->get('mould_tab_id');
-        Db::table($mould->table)->where('id',$mould_tab_id)->update($request->post());
+        $insert_data=$request->post();
+        $id= $insert_data['mould_tab_id'];
+        unset($insert_data['mould_tab_id']);
+        Db::table($mould->table)->where('id',$id)->update($insert_data);
+       // $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
       }
     }
     //模型列表
@@ -190,10 +197,8 @@ class Mould extends  BaseController
 
     public function view_del(Request $request){
       $mould= MouldModel::get($request->get('mould_id'));
-      var_dump($request->get());
-      exit();
-      \think\Db::table($mould->table)->select();
-    //  DB::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
+     // \think\Db::table($mould->table)->select();
+      DB::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
        $this->returnInfo(0,'','删除');
     }
 }

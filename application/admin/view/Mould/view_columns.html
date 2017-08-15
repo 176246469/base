@@ -35,7 +35,7 @@
                                             {notempty name="data.info.edit"}
                                             <a  class="btn btn-outline btn-default btn-xs "  href="/index.php/admin/mould/view_update?mould_id={$data.info.id}&id={$vo.id}">管理</a>
                                              {/notempty}
-                                            <button type="button" onclick="del('/index.php/admin/mould/view_del/mould_id={$data.info.id}&id={$vo.id}');"  class="btn btn-outline btn-default btn-xs ">删除</button>
+                                            <button type="button" onclick="del('/index.php/admin/mould/view_del?mould_id={$data.info.id}&id={$vo.id}');"  class="btn btn-outline btn-default btn-xs ">删除</button>
                                         </td>
                                     </tr>
                                     {/volist}

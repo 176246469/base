@@ -14,7 +14,8 @@ class MouldModel  extends BaseModel
                       '5'=>'富文本[text(255)]',
                       '6'=>'日期[int(11)]',
                       '7'=>'图片[varchar(255)]',
-                      '8'=>'附件[varchar(255)]',
+                      '8'=>'视频[varchar(255)]',
+                      '9'=>'文件[varchar(255)]',
             ];
         if(empty($key)){
               return  $type;
