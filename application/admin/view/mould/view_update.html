@@ -24,6 +24,10 @@
                 var editor_img = K.editor({
                     allowFileManager : true
                 });
+                /**视频*******/
+                var editor_media = K.editor({
+                    allowFileManager : true
+                });
                 /**富文本**/
                 var editor_text;
                 editor_text = K.create('textarea[class="content"]', {
@@ -41,6 +45,21 @@
                             imageUrl : pp.prev().val(),
                             clickFn : function(url, title, width, height, border, align) {
                                 editor_img.hideDialog();
+                                   pp.prev().val(url);
+                            }
+                        },pp);
+                    },pp);
+                });
+
+                K('.editor_media').click(function() { 
+
+                    var pp=$(this);
+                    editor_media.loadPlugin('insertfile', function() {
+                        editor_media.plugin.fileDialog({
+                            showRemote : false,
+                            imageUrl : pp.prev().val(),
+                            clickFn : function(url, title, width, height, border, align) {
+                                editor_media.hideDialog();
                                    pp.prev().val(url);
                             }
                         },pp);
@@ -119,9 +138,17 @@
                                     </div>
                                  {/case}
                                  {case value="7"}
-                                            <div class="col-sm-10"><img src="/static/js/{$data['fileds'][$key]['filed_value']}" /><br>
-                                                    <input type="text"  id="url3" name="{$data['fileds'][$key]['filed']}" /> <input type="button" class="editor_image" value="选择图片" />
-                                            </div>
+                                        <div class="col-sm-10"><img src="/static/js/{$data['fileds'][$key]['filed_value']}" /><br>
+                                                <input type="text"   name="{$data['fileds'][$key]['filed']}" value="{$data['fileds'][$key]['filed_value']}" /> <input type="button" class="editor_image" value="选择图片" />
+                                        </div>
+                                 {/case}
+                                 {case value="8"}
+                                        <div class="col-sm-10"><br>
+                                                    <video width="120px" height="120px" src="/static/js/{$data['fileds'][$key]['filed_value']}" controls="controls">
+                                                    您的浏览器不支持 video 标签。
+                                                    </video>
+                                                <input type="text"  name="{$data['fileds'][$key]['filed']}" value="{$data['fileds'][$key]['filed_value']}" /> <input type="button" class="editor_media" value="选择视频" />
+                                        </div>
                                  {/case}
                                  {default /}
                             {/switch}

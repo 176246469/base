@@ -159,7 +159,7 @@ class Mould extends  BaseController
               }
              $data['fileds'][$value->id]['filed_value']=$tab_info[$value->filed];
            } 
-             //var_dump($data['fileds']);
+              //var_dump($data['fileds']);
               $this->assign('data',$data);
               $this->assign('tab_info',$tab_info);
               return $this->fetch('view_update');
@@ -170,7 +170,7 @@ class Mould extends  BaseController
         $id= $insert_data['mould_tab_id'];
         unset($insert_data['mould_tab_id']);
         Db::table($mould->table)->where('id',$id)->update($insert_data);
-       // $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
+        $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
       }
     }
     //模型列表
@@ -197,8 +197,7 @@ class Mould extends  BaseController
 
     public function view_del(Request $request){
       $mould= MouldModel::get($request->get('mould_id'));
-     // \think\Db::table($mould->table)->select();
       DB::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
-       $this->returnInfo(0,'','删除');
+      $this->returnInfo(0,'','删除');
     }
 }
