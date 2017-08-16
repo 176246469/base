@@ -6,9 +6,7 @@
 //define your token
 define("TOKEN", "weixin");
 
-$wechatObj = new wechatCallbackapiTest();
-$wechatObj->valid();
-$wechatObj->responseMsg();
+
 class wechatCallbackapiTest
 {
 	public function valid()
@@ -35,14 +33,14 @@ class wechatCallbackapiTest
                 $toUsername = $postObj->ToUserName;
                 $keyword = trim($postObj->Content);
                 $time = time();
-                $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
-							<CreateTime>%s</CreateTime>
-							<MsgType><![CDATA[%s]]></MsgType>
-							<Content><![CDATA[%s]]></Content>
-							<FuncFlag>0</FuncFlag>
-							</xml>";             
+                $textTpl = "
+                    
+                    
+                    %s
+                    
+                    
+                    %d
+                    ";             
 				if(!empty( $keyword ))
                 {
               		$msgType = "text";
@@ -78,5 +76,7 @@ class wechatCallbackapiTest
 		}
 	}
 }
-
+$wechatObj = new wechatCallbackapiTest();
+$wechatObj->valid();
+//$wechatObj->responseMsg();
 ?>
