@@ -15,8 +15,8 @@ class wechatCallbackapiTest
 
         //valid signature , option
         if($this->checkSignature()){
-        	echo $echoStr;
-        	exit;
+        	//echo $echoStr;
+        	///exit;
         }
     }
 
@@ -63,7 +63,7 @@ class wechatCallbackapiTest
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];	
         		
-		$token = TOKEN;
+		$token = 'weixin';
 		$tmpArr = array($token, $timestamp, $nonce);
 		sort($tmpArr);
 		$tmpStr = implode( $tmpArr );
