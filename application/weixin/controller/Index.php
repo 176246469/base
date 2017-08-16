@@ -4,7 +4,7 @@ use think\Request;
 use think\Session;
 
 
-use app\weixin\wechatCallbackapiTest;
+use app\weixin\model\wechatCallbackapiTest;
 class Index extends  BaseController
 {
 
