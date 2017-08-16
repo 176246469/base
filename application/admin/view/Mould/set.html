@@ -18,6 +18,7 @@
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane active">
                             <div class="panel-body">
+                             <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_add">
                                 <table class="table">
                                 <thead>
                                     <tr>
@@ -27,31 +28,25 @@
                                         <th>类型</th>
                                         <th>值</th>
                                         <th>验证</th>
-                                        <th>显示</th>
+                     
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 {volist name="data.info.add" id="vo"}
+                                 {volist name="data.info.add" id="vo" }
                                     <tr>
-                                        <td>{$key}</td>
+                                        <td>{$key}   <input type="hidden" name="filed[{$key}][order][]" value="{$key}"></td>
                                         <td>{$data["fileds"][$key]['title']}</td>
                                          <td>{$data["fileds"][$key]['filed']}</td>
                                          <td>{$data["fileds"][$key]['type']}</td>
                                          <td>{$data["fileds"][$key]['value']}</td>
                                         <td>
                                             <div class="col-sm-10">
-                                             {volist name="validate" id="vo2"}
-                                            <label class="checkbox-inline">
-                                            <input type="checkbox" value="option1" id="inlineCheckbox1" value="{$key}">{$vo2[0]}</label>
-                                             {/volist}
+                                             <?php foreach ($validate as $ko => $vo) { ?>
+                                                    <label class="checkbox-inline">
+                                                    <input type="checkbox"  <?php  echo( isset($data['info']['add'][$key]['validate'][$ko]) ?  'checked="checked"'  :''); ?> name="filed[{$key}][validate][{$ko}]" value="{$ko}">{$vo[0]}</label>
+                                            <?php } ?>
                                             </div>
-                                        </td>
-                                        <td>
-                                        <select class="m-b" name="">
-                                        <option value="1">是</option>
-                                        <option value="2">否</option>
-                                        </select>
                                         </td>
                                         <td>
                                             <a  class="btn btn-outline btn-default btn-xs "  href="">移除</a>
@@ -60,15 +55,52 @@
                                     {/volist}
                                 </tbody>
                             </table>
+                            <input  type="hidden"  name="id"  value="{$data.info.id}">
+                            <input class="btn btn-primary" type="button"  id="submit"  value="保存">
+                            </form>
                             </div>
                         </div>
                         <div id="tab-2" class="tab-pane">
                             <div class="panel-body">
-
-
-
-
-
+                                 <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_edit">
+                                    <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>顺序</th>
+                                            <th>名称</th>
+                                            <th>字段</th>
+                                            <th>类型</th>
+                                            <th>值</th>
+                                            <th>验证</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     {volist name="data.info.edit" id="vo" }
+                                        <tr>
+                                            <td>{$key}   <input type="hidden" name="filed[{$key}][order][]" value="{$key}"></td>
+                                            <td>{$data["fileds"][$key]['title']}</td>
+                                             <td>{$data["fileds"][$key]['filed']}</td>
+                                             <td>{$data["fileds"][$key]['type']}</td>
+                                             <td>{$data["fileds"][$key]['value']}</td>
+                                            <td>
+                                                <div class="col-sm-10">
+                                                 <?php foreach ($validate as $ko => $vo) { ?>
+                                                        <label class="checkbox-inline">
+                                                        <input type="checkbox"  <?php  echo( isset($data['info']['edit'][$key]['validate'][$ko]) ?  'checked="checked"'  :''); ?> name="filed[{$key}][validate][{$ko}]" value="{$ko}">{$vo[0]}</label>
+                                                <?php } ?>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a  class="btn btn-outline btn-default btn-xs "  href="">移除</a>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+                                    </tbody>
+                                </table>
+                                <input  type="hidden"  name="id"  value="{$data.info.id}">
+                                <input class="btn btn-primary" type="button"  id="submit"  value="保存">
+                                </form>
                             </div>
                         </div>
                         <div id="tab-3" class="tab-pane">

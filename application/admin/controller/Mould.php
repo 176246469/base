@@ -68,16 +68,16 @@ class Mould extends  BaseController
                         }                
                }
                 if(isset($in['add']) && !empty($in['add'])){
-                    $mould->add=serialize($in['add']);
+                    $mould->add= serialize($in['add']);
                 }
                 if(isset($in['edit']) && !empty($in['edit'])){
-                    $mould->edit=serialize($in['edit']);
+                    $mould->edit= serialize($in['edit']);
                 }
                 if(isset($in['list']) && !empty($in['list'])){
-                    $mould->list=serialize($in['list']);
+                    $mould->list= serialize($in['list']);
                 }
                 if(isset($in['sreach']) && !empty($in['sreach'])){
-                    $mould->sreach=serialize($in['sreach']);
+                    $mould->sreach= serialize($in['sreach']);
                 }
 
                 $mould->save();
@@ -93,14 +93,17 @@ class Mould extends  BaseController
             if(empty($request->post())){
               $mould= MouldModel::get($request->get('id'));
               $data['info']=$mould->toarray();
-              $data['info']['add']=unserialize($data['info']['add']);
-              $data['info']['edit']=unserialize($data['info']['edit']);
+              $match=$data['info']['add'];
+              $data['info']['add']=$this->mb_unserialize($data['info']['add']);
+            //preg_replace_callback('#s:(\d+):"(.*?)";#s',function($match){return 's:'.strlen($match[2]).':"'.$match[2].'";' } );
+                            //      $data['info']['add']=unserialize($match); 
+              $data['info']['edit']=$this->mb_unserialize($data['info']['edit']);
               $data['info']['list']=unserialize($data['info']['list']);
               $data['info']['sreach']=unserialize($data['info']['sreach']);
               foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
                   $data['fileds'][$value->id]=$value->toarray();
               }
-              //var_dump($data);exit();
+             // var_dump(  $data['info']['add']);exit();
                 $this->assign('validate',FiledsModel::$validate2);
               $this->assign('data',$data);
               return $this->fetch('set');
@@ -108,7 +111,28 @@ class Mould extends  BaseController
               $this->returnInfo(0,'','');
             }            
         }
-
+      //set_add
+      public function set_add(Request $request){
+            if(!empty($request->post())){
+                $data=$request->post();
+                $mould= MouldModel::get($data['id']);
+                 
+                $mould->add=serialize($data['filed']);
+                $mould->save();
+                 $this->returnInfo(0,'/index.php/admin/mould/set?id='.$data['id'],'保存成功');       
+            }
+      }      
+      //set_edit
+      public function set_edit(Request $request){
+            if(!empty($request->post())){
+                $data=$request->post();
+                $mould= MouldModel::get($data['id']);
+                 
+                $mould->edit=serialize($data['filed']);
+                $mould->save();
+                 $this->returnInfo(0,'/index.php/admin/mould/set?id='.$data['id'],'保存成功');       
+            }
+      }     
         public function del(Request $request){
           
               $mould=MouldModel::get($request->get('id'));
@@ -127,6 +151,8 @@ class Mould extends  BaseController
               $mould= MouldModel::get($request->get('mould_id'));
               $data['info']=$mould->toarray();
               $data['info']['add']=unserialize($data['info']['add']);
+              var_dump($data['info']['add']);exit();
+
                foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
                   $data['fileds'][$value->id]=$value->toarray();
                   //多选
@@ -138,7 +164,9 @@ class Mould extends  BaseController
               return $this->fetch('view_put');
      }else{
         $mould= MouldModel::get($request->get('mould_id'));
-
+        foreach($mould['add'] as $value){
+                FiledsModel::check($value["validate"]);
+        }
         Db::table($mould->table)->insert($request->post());
         $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
      }
@@ -205,4 +233,9 @@ class Mould extends  BaseController
       DB::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
       $this->returnInfo(0,'','删除');
     }
+function mb_unserialize($serial_str) { 
+    $serial_str = preg_replace_callback('!s:(\d+):"(.*?)";!s', create_function('$math',"return 's:'.strlen(\$math[2]).':\"'.\$math[2].'\";';"), $serial_str); 
+    return unserialize($serial_str);
+}
+
 }

@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\model;
 use think\Cache;
+//use \think\Validate;
 use app\admin\model\BaseModel;
 class FiledsModel    extends BaseModel
 {
@@ -16,6 +17,13 @@ class FiledsModel    extends BaseModel
                                                     '7'=>array('长度','length:4,25'),
                                 );
 
+
+       public static function check($validate){
+                    foreach ($variable as $k => $v) {
+                       $str= $validate2[$v]['1']."|";
+                    }
+                    return trim($str,'|');
+        }
 }
 
 ?>
