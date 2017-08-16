@@ -4,8 +4,8 @@
   */
 
 //define your token
-define("TOKEN", "weixin");
 
+responseMsg();
 class wechatCallbackapiTest
 {
     /*public function valid()
@@ -131,7 +131,8 @@ class wechatCallbackapiTest
         }
     }
 }
+/*
 $wechatObj = new wechatCallbackapiTest();
 $wechatObj->valid();
-$wechatObj->responseMsg();
+$wechatObj->responseMsg();*/
 ?>
