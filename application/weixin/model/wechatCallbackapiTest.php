@@ -5,8 +5,6 @@
 namespace app\weixin\model;
 //define your token
 define("TOKEN", "weixin");
-$wechatObj = new wechatCallbackapiTest();
-$wechatObj->valid();
 
 class wechatCallbackapiTest
 {
