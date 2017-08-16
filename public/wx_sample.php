@@ -6,8 +6,8 @@
 //define your token
 define("TOKEN", "weixin");
 
-            $wechatObj = new wechatCallbackapiTest();
-            $wechatObj->valid();
+$wechatObj = new wechatCallbackapiTest();
+$wechatObj->valid();
 class wechatCallbackapiTest
 {
 	public function valid()
@@ -53,7 +53,7 @@ class wechatCallbackapiTest
                 }
 
         }else {
-        	echo "";
+        	echo "2222222";
         	exit;
         }
     }
