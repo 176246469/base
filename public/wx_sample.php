@@ -11,7 +11,7 @@ if($_GET['echostr']){
 }else{
     
      $wechatObj->responseMsg();
-    
+
 }
 
 
@@ -52,7 +52,7 @@ class wechatCallbackapiTest
                 if(!empty( $keyword ))
                 {
                     $msgType = "text";
-                    $contentStr = "Welcome to wechat world!";
+                    $contentStr = "你好sunfengyan";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                 }else{

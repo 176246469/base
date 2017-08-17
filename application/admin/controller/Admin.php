@@ -103,8 +103,25 @@ class Admin extends  BaseController
             $menu=MenuModel::getVals(); 
             $admin=Session::get('admin');
             $group=GroupModel::get($admin['group']);
-            $access=unserialize($group['access']);
+
+            $access=unserialize($group['access']);   
+            if($admin['id']!=1){
+                foreach($menu as $key=>$value){
+                        if(isset($access[$key])){
+                             foreach($value["child"] as $k=>$v){
+                               
+                                  //var_dump($key);  var_dump($k); exit();
+                                    if(!isset($access[$key][$k])){
+                                    unset($menu[$key]['child'][$k]);
+                                }
+                             }
+                        }else{
+                            unset($menu[$key]);
+                       }
+                } 
+            }
             $this->assign('menu',$menu);
+
             $this->assign('admin',$admin);
             return $this->fetch('index');
         }
@@ -112,11 +129,11 @@ class Admin extends  BaseController
             $option['name']=$request->post('name');
             $option['password']=$request->post('password'); 
             $admin=new  AdminModel();
-            $admin= $admin->login($option);
-            if(empty($admin)){
+            $info= $admin->login($option);
+            if(empty($info)){
                     $this->returnInfo(-1,'','密码错误');
             }else{
-                    Session::set('admin',$admin);
+                    Session::set('admin',$info);
                     $this->returnInfo(0,'/index.php/admin/admin/index','登录成功');
             }    
         }

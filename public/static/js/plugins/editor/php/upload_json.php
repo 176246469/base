@@ -21,7 +21,7 @@ $ext_arr = array(
 	'image' => array('gif', 'jpg', 'jpeg', 'png', 'bmp'),
 	'flash' => array('swf', 'flv'),
 	'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
-	'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2'),
+	'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2','swf', 'flv', 'mp4', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
 );
 //最大文件大小
 $max_size = 1000000;
@@ -84,9 +84,9 @@ if (empty($_FILES) === false) {
 		alert("上传失败。");
 	}
 	//检查文件大小
-	if ($file_size > $max_size) {
-		alert("上传文件大小超过限制。");
-	}
+	//if ($file_size > $max_size) {
+	//	alert("上传文件大小超过限制。");
+	//}
 	//检查目录名
 	$dir_name = empty($_GET['dir']) ? 'image' : trim($_GET['dir']);
 	if (empty($ext_arr[$dir_name])) {

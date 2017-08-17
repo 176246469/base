@@ -140,7 +140,21 @@ $('.change-status').click(function(event) {
 $('#submit').click(function(event) {
  jc.submit($(this));
 });
+$('.submit_all').click(function(event) {
 
+ jc.submit($(this));
+});
+$(".tab-content").on("click",".btn-top",function(){  
+  $(this).closest('tr').after($(this).closest('tr').prev().prop("outerHTML") ); 
+  $(this).closest('tr').prev().remove();
+});
+$(".tab-content").on("click",".btn-down",function(){
+  $(this).closest('tr').before($(this).closest('tr').next().prop("outerHTML") ); 
+  $(this).closest('tr').next().remove();
+});
+$(".tab-content").on("click",".btn-del",function(){
+  $(this).closest('tr').remove();
+});
 //绑定搜索
 $('#sreach').click(function(event) {
     jc.sreach$(this);

@@ -7,7 +7,7 @@ class FiledsModel    extends BaseModel
 {
    protected $table = 'mould_fileds';
 
-   public static $validate2  = array(
+   public static $validate_data  = array(
                                                     '1'=>array('必填','require'),
                                                     '2'=>array('数字','number'),
                                                     '3'=>array('浮点数','float'),
@@ -18,11 +18,13 @@ class FiledsModel    extends BaseModel
                                 );
 
 
-       public static function check($validate){
-                    foreach ($variable as $k => $v) {
-                       $str= $validate2[$v]['1']."|";
-                    }
-                    return trim($str,'|');
+       public static function getValidate($data){
+                    foreach ($data as $k => $v) {
+                        if(isset(self::$validate_data[$k])){
+                          $str= self::$validate_data[$k]['1']."|";                          
+                        }
+                     }
+               return trim($str,'|');
         }
 }
 

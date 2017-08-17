@@ -16,7 +16,10 @@ class AdminModel  extends BaseModel
       }else{
      
         if($admin->password==trim($option['password']) && $admin->getData('status')==1){
-                  return $admin->toarray();
+                  //$admin->group=$admin->getData('group');
+                  $rs=$admin->toarray();
+                  $rs['group']=$admin->getData('group');
+                  return $rs;
                 }else{
                   return '';
                 }

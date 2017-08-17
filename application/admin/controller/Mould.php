@@ -93,18 +93,21 @@ class Mould extends  BaseController
             if(empty($request->post())){
               $mould= MouldModel::get($request->get('id'));
               $data['info']=$mould->toarray();
-              $match=$data['info']['add'];
+            
               $data['info']['add']=$this->mb_unserialize($data['info']['add']);
             //preg_replace_callback('#s:(\d+):"(.*?)";#s',function($match){return 's:'.strlen($match[2]).':"'.$match[2].'";' } );
                             //      $data['info']['add']=unserialize($match); 
+
               $data['info']['edit']=$this->mb_unserialize($data['info']['edit']);
-              $data['info']['list']=unserialize($data['info']['list']);
-              $data['info']['sreach']=unserialize($data['info']['sreach']);
+              $data['info']['list']=$this->mb_unserialize($data['info']['list']);
+
+              $data['info']['sreach']=$this->mb_unserialize($data['info']['sreach']);
               foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
                   $data['fileds'][$value->id]=$value->toarray();
               }
-             // var_dump(  $data['info']['add']);exit();
-                $this->assign('validate',FiledsModel::$validate2);
+             // var_dump(  MouldModel::Type());exit();
+              $this->assign('type',MouldModel::Type());
+              $this->assign('validate',FiledsModel::$validate_data);
               $this->assign('data',$data);
               return $this->fetch('set');
             }else{
@@ -151,8 +154,6 @@ class Mould extends  BaseController
               $mould= MouldModel::get($request->get('mould_id'));
               $data['info']=$mould->toarray();
               $data['info']['add']=unserialize($data['info']['add']);
-              var_dump($data['info']['add']);exit();
-
                foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
                   $data['fileds'][$value->id]=$value->toarray();
                   //多选
@@ -164,8 +165,18 @@ class Mould extends  BaseController
               return $this->fetch('view_put');
      }else{
         $mould= MouldModel::get($request->get('mould_id'));
-        foreach($mould['add'] as $value){
-                FiledsModel::check($value["validate"]);
+        $mould['add']=$this->mb_unserialize($mould['add']);
+        foreach($mould['add'] as $key=>$value){
+            if(isset($value["validate"]) &&!empty($value["validate"])){
+                        $filed=FiledsModel::get($key);
+                         $validate_data[$filed->filed]=FiledsModel::getValidate($value["validate"]);
+            }
+        }
+        if(!empty($validate_data)){
+            $validate = new Validate($validate_data);
+            if (!$validate->check($request->post())) {
+                  $this->returnInfo(-1,'',$validate->getError());
+            } 
         }
         Db::table($mould->table)->insert($request->post());
         $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
@@ -196,11 +207,28 @@ class Mould extends  BaseController
 
       }else{
         $mould= MouldModel::get($request->get('mould_id'));
+        $mould['edit']=$this->mb_unserialize($mould['edit']);
+        foreach($mould['edit'] as $key=>$value){
+            if(isset($value["validate"]) &&!empty($value["validate"])){
+                        $filed=FiledsModel::get($key);
+                         $validate_data[$filed->filed]=FiledsModel::getValidate($value["validate"]);
+            }
+        }
+        if(!empty($validate_data)){
+            $validate = new Validate($validate_data);
+            if (!$validate->check($request->post())) {
+                  $this->returnInfo(-1,'',$validate->getError());
+            } 
+        }
         $insert_data=$request->post();
         $id= $insert_data['mould_tab_id'];
         unset($insert_data['mould_tab_id']);
         Db::table($mould->table)->where('id',$id)->update($insert_data);
-        $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');       
+        if(!empty($mould['list'])){
+            $this->returnInfo(0,'/index.php/admin/mould/view_columns?mould_id='.$request->get('mould_id'),'保存成功');               
+        }else{
+              $this->returnInfo(0,'','保存成功');  
+        }
       }
     }
     //模型列表
