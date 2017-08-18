@@ -21,6 +21,7 @@
             file_put_contents('weixin_log.txt', '$_GET[echostr])='.htmlspecialchars($_GET['echostr']).PHP_EOL,FILE_APPEND); //记录是否获取到echostr参数
            // exit(htmlspecialchars($_GET['echostr']));    
               $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+                      file_put_contents('weixin_log.txt', "postStr=".$postStr.PHP_EOL,FILE_APPEND ); //记录访问IP到log日志
                 if (!empty($postStr)){
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $fromUsername = $postObj->FromUserName;
