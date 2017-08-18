@@ -16,7 +16,17 @@
                 $tmpStr = sha1( $tmpStr );
                 //验证成功
                 if( $tmpStr == $signature ){
-                     exit(htmlspecialchars($_GET['echostr'])); 
-                }
+                if (!empty($postStr)){
+                $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $fromUsername = $postObj->FromUserName;
+                $toUsername = $postObj->ToUserName;
+                $keyword = trim($postObj->Content);
+                $time = time();
+                $textTpl = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>";     
+                $msgType = "text";
+                $contentStr = "Welcome to wechat world!";
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                    exit($resultStr);
+                }   }
 
 ?>
