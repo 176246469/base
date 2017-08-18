@@ -4,3 +4,15 @@ $_GET[echostr])=
 IP=127.0.0.1
 QUERY_STRING=echostr=333
 $_GET[echostr])=333
+IP=127.0.0.1
+QUERY_STRING=echostr=888
+$_GET[echostr])=888
+IP=127.0.0.1
+QUERY_STRING=echostr=888
+$_GET[echostr])=888
+IP=127.0.0.1
+QUERY_STRING=echostr=8888888888
+$_GET[echostr])=8888888888
+IP=127.0.0.1
+QUERY_STRING=echostr=
+$_GET[echostr])=
