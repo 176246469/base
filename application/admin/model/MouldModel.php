@@ -33,7 +33,7 @@ class MouldModel  extends BaseModel
                  $info->list=$this->mb_unserialize($info->list);
                  foreach(FiledsModel::all(['mould_id'=>$id]) as $value){
                       if(isset($info->list[$value->id])){
-                        $filed_str.="'".$value->filed."'"
+                        $filed_str.="'".$value->filed."'";
                       }
                  }
              }else{
@@ -61,7 +61,7 @@ class MouldModel  extends BaseModel
          public static  function delInfo($mould_id,$id){
             return  self::updateInfo($mould_id,$id,['status' => '-1']);
      }
-     
+
     function mb_unserialize($serial_str) { 
         $serial_str = preg_replace_callback('!s:(\d+):"(.*?)";!s', create_function('$math',"return 's:'.strlen(\$math[2]).':\"'.\$math[2].'\";';"), $serial_str); 
         return unserialize($serial_str);

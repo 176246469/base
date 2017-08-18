@@ -77,7 +77,7 @@ form.find('.targe-check').each(function(index, el) {
 /********************/
 
 var jc = {
-    api: 'http://www.tp.com/',
+    api: document.domain,
     init: function() {
         _this = this;
     },
