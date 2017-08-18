@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\model;
 use think\Cache;
+use think\Db;
 use app\admin\model\BaseModel;
 class MouldModel  extends BaseModel  
 {
@@ -25,44 +26,45 @@ class MouldModel  extends BaseModel
            return  $type[$key];
         }
    }
-    public static  function getList($id,$filed=""){
-             $where['status']=1;
-             $info= self::find($id);
+    public static  function getList($param,$filed=""){
+            $id=$param['id'];
+            unset($param['id']);
+            foreach()
+            $where['status']=['>',0];
+             $info= self::find($id)->toarray();
              if(empty($filed)){
-                 $filed_str="'id','status'";
-                 $info->list=$this->mb_unserialize($info->list);
+                 $filed_str="id,status";
+                 $info['list']=self::mb_unserialize($info['list']);
                  foreach(FiledsModel::all(['mould_id'=>$id]) as $value){
-                      if(isset($info->list[$value->id])){
-                        $filed_str.="'".$value->filed."'";
+                      if(isset($info['list'][$value->id])){
+                        $filed_str.=",".$value->filed;
                       }
                  }
              }else{
                 $filed_str="'*'";
-             }
-            $list=Db::table($mould->table)->field($filed_str)->where($where)->paginate(15);
+             }  
+            $list=Db::table($info['table'])->field($filed_str)->where($where)->paginate(3);
             $data['list']=$list;
             $data['page'] = $list->render();
             return  $data;
      }
 
       public static function getInfo($mould_id,$id){
-             $where['status']=1;
-             $where['id']=$id;
-             $info= self::find($mould_id);
-             $data=Db::table($mould->table)->where($where)->find();
+             $info= self::find($mould_id)->toarray();
+             $data=Db::table($info['table'])->find($id);
              return  $data;
      }
 
       public static function updateInfo($mould_id,$id,$data){
              $where['id']=$id;
-             $info= self::find($mould_id);
-             return  Db::table($mould->table)->where($where)->update($data);
+             $info= self::find($mould_id)->toarray();
+             return  Db::table($info['table'])->where($where)->update($data);
      }
          public static  function delInfo($mould_id,$id){
             return  self::updateInfo($mould_id,$id,['status' => '-1']);
      }
 
-    function mb_unserialize($serial_str) { 
+    public static function mb_unserialize($serial_str) { 
         $serial_str = preg_replace_callback('!s:(\d+):"(.*?)";!s', create_function('$math',"return 's:'.strlen(\$math[2]).':\"'.\$math[2].'\";';"), $serial_str); 
         return unserialize($serial_str);
     }
