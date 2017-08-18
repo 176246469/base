@@ -15,7 +15,9 @@
                 $tmpStr = implode( $tmpArr );
                 $tmpStr = sha1( $tmpStr );
                 //验证成功
-                if( $tmpStr == $signature ){
+                if( $tmpStr == $signature ){ 
+exit(666);
+                /*
                 if (!empty($postStr)){
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $fromUsername = $postObj->FromUserName;
@@ -27,6 +29,6 @@
                 $contentStr = "Welcome to wechat world!";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     exit($resultStr);
-                }   }
+                } */  }
 
 ?>
