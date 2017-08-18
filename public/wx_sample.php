@@ -9,6 +9,7 @@
                 $tmpStr = sha1( $tmpStr );
                 //验证成功
                 if( $tmpStr == $signature ){
+                    return true;
                         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
                         if (!empty($postStr)){
                                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
