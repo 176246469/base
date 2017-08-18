@@ -33,7 +33,7 @@
                     exit($resultStr);               
            }
 
-                exit(44);  
+               return true;
                       /*
                       //记录访问IP到log日志
                 if (!empty($postStr)){
