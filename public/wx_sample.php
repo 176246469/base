@@ -19,13 +19,13 @@
             file_put_contents('weixin_log.txt', "IP=".$_SERVER['REMOTE_ADDR'].PHP_EOL,FILE_APPEND); //记录访问IP到log日志
             file_put_contents('weixin_log.txt', "QUERY_STRING=".$_SERVER['QUERY_STRING'].PHP_EOL,FILE_APPEND);//记录请求字符串到log日志
             file_put_contents('weixin_log.txt', '$_GET[echostr])='.htmlspecialchars($_GET['echostr']).PHP_EOL,FILE_APPEND); //记录是否获取到echostr参数
-            exit(htmlspecialchars($_GET['echostr']));  
+        
            if(isset($GLOBALS["HTTP_RAW_POST_DATA"])){
               $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
                       file_put_contents('weixin_log.txt', "postStr=".$postStr.PHP_EOL,FILE_APPEND );                 
            }
-
-                      exit(666);
+    exit(htmlspecialchars($_GET['echostr']));  
+               
                       /*
                       //记录访问IP到log日志
                 if (!empty($postStr)){
