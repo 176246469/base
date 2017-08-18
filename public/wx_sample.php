@@ -1,7 +1,7 @@
-<?php
-                $signature = $_GET["signature"];
-                $timestamp = $_GET["timestamp"];
-                $nonce = $_GET["nonce"];    
+<?php   
+                $signature = $_REQUEST['signature'];
+                $timestamp =  $_REQUEST['timestamp'];
+                $nonce =  $_REQUEST['nonce'];
                 $token = "weixin";
                 $tmpArr = array($token, $timestamp, $nonce);
                 sort($tmpArr);
