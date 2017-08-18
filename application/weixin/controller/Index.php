@@ -25,9 +25,9 @@ class Index extends   \think\Controller
                 //$this->assign('data',$data); 
                 return $this->fetch('blind');
         }
-        public function play(Request $request){
+        public function paly(Request $request){
 
                 //$this->assign('data',$data); 
-                return $this->fetch('play');
+                return $this->fetch('paly');
         }
 }
