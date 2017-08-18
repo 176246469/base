@@ -20,4 +20,14 @@ class Index extends   \think\Controller
                 //$this->assign('data',$data); 
                 return $this->fetch('group');
         }
+        public function blind(Request $request){
+
+                //$this->assign('data',$data); 
+                return $this->fetch('blind');
+        }
+        public function play(Request $request){
+
+                //$this->assign('data',$data); 
+                return $this->fetch('play');
+        }
 }
