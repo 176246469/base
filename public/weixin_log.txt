@@ -1,0 +1,6 @@
+IP=127.0.0.1
+QUERY_STRING=
+$_GET[echostr])=
+IP=127.0.0.1
+QUERY_STRING=echostr=333
+$_GET[echostr])=333
