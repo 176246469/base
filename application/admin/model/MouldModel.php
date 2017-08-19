@@ -29,7 +29,7 @@ class MouldModel  extends BaseModel
     public static  function getList($param,$filed=""){
             $id=$param['id'];
             unset($param['id']);
-            foreach()
+            
             $where['status']=['>',0];
              $info= self::find($id)->toarray();
              if(empty($filed)){
