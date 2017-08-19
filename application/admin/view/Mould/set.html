@@ -6,13 +6,15 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 新增</a>
+                        <li  {eq name=":input('param.tab')" value=""} class="active" {/eq} ><a data-toggle="tab" href="#tab-1" aria-expanded="false"> 新增</a>
                         </li>
-                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">修改</a>
+                        <li   {eq name=":input('param.tab')" value="tab-2"} class="active" {/eq} ><a data-toggle="tab" href="#tab-2" aria-expanded="false">修改</a>
                         </li>
-                        <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="true"> 列表</a>
+                        <li {eq name=":input('param.tab')" value="tab-3"} class="active" {/eq}><a data-toggle="tab" href="#tab-3" aria-expanded="false"> 列表</a>
                         </li>
-                        <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">搜索</a>
+                        <li  {eq name=":input('param.tab')" value="tab-4"} class="active" {/eq}><a data-toggle="tab" href="#tab-4" aria-expanded="false">搜索</a>
+                        </li>
+                        <li  {eq name=":input('param.tab')" value="tab-5"} class="active" {/eq}><a data-toggle="tab" href="#tab-5" aria-expanded="false">设置</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -103,7 +105,7 @@
                                         <a  class="btn btn-outline btn-default btn-xs btn-top"  href="#">↑</a>
                                         <a  class="btn btn-outline btn-default btn-xs btn-down"  href="#">↓</a>
                                         <a  class="btn btn-outline btn-default btn-xs btn-del"  href="#">移除</a>
-                                        <a  class="btn btn-outline btn-default btn-xs btn-add"  href="#">追加</a>
+                                        
                                         </td>
                                     </tr>
                                         {/volist}
@@ -124,10 +126,9 @@
                                             <th>名称</th>
                                             <th>字段</th>
                                             <th>类型</th>
-                                            <th>代替名</th>
-                                            <th>链接</th>
-                                            <th>值</th>
-                                            <th>显示</th>
+                                            <th>默认值</th>
+                                           <th>链接</th>
+                                            <th>文本类型</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
@@ -139,18 +140,18 @@
                                          <td>{$data["fileds"][$key]['filed']}</td>
                                          <td>{$type[$data["fileds"][$key]['type']]}</td>
                                          <td>{$data["fileds"][$key]['value']}</td>
-                                         <td><input   class="form-control m-m"  name='' /></td>
-                                         <td><input   class="form-control m-a"  name='' /></td>
-                                         <td><select class="form-control m-b" name="filed[{$key}][type][]">
-                                        <option value="1">正常</option>
-                                        <option value="2">文本显示</option>
-                                        <option value="3">隐藏</option>
+                                         <td><input   class="form-control m-m"  name='filed[{$key}][link]'  value="{$vo.link|default=''}"/></td>
+                                         <td><input   class="form-control m-a"    name='filed[{$key}][val]' value="{$vo.val|default=''}" /></td>
+                                         <td><select class="form-control m-b"     name="filed[{$key}][type]">
+                                        <option value="1"  >文本显示</option>
+                                        <option value="2">文本链接</option>
+                                        <option value="3">文本按钮</option>
+                                        <option value="4">隐藏</option>
                                          </select></td>
                                         <td>
                                         <a  class="btn btn-outline btn-default btn-xs btn-top"  href="#">↑</a>
                                         <a  class="btn btn-outline btn-default btn-xs btn-down"  href="#">↓</a>
                                         <a  class="btn btn-outline btn-default btn-xs btn-del"  href="#">移除</a>
-                                        <a  class="btn btn-outline btn-default btn-xs btn-add"  href="#">追加</a>
                                         </td>
                                     </tr>
                                         {/volist}
@@ -190,7 +191,55 @@
                                         <a  class="btn btn-outline btn-default btn-xs btn-top"  href="#">↑</a>
                                         <a  class="btn btn-outline btn-default btn-xs btn-down"  href="#">↓</a>
                                         <a  class="btn btn-outline btn-default btn-xs btn-del"  href="#">移除</a>
-                                        <a  class="btn btn-outline btn-default btn-xs btn-add"  href="#">追加</a>
+                                        </td>
+                                    </tr>
+                                        {/volist}
+                                    </tbody>
+                                </table>
+                                <input  type="hidden"  name="id"  value="{$data.info.id}">
+                                <input class="btn btn-primary submit_all" type="button"    value="保存">
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-5" class="tab-pane">
+                            <div class="panel-body">
+                                 <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_sreach">
+                                    <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>名称</th>
+                                            <th>字段</th>
+                                            <th>类型</th>
+                                            <th>设置</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     {volist name="data.fileds" id="vo" }
+                                    <tr>
+                                        <td>{$vo.id}   <input type="hidden" name="{$vo.id}" value="{$vo.id}"></td>
+                                        <td><input type="text" class="form-control" name="{$vo.id}" value="{$vo.title}"> </td>
+                                         <td><input type="text"class="form-control"  name="{$vo.filed}" value="{$vo.filed}"> </td>
+                                         <td>
+                                        <select class="form-control" name="fileds3[{$key}][type]">
+                                            <?php foreach($type as $k =>$v)  { ?>
+                                                <option value="<?php echo $k; ?>" <?php  if($vo['type']==$k){ ?> selected = "selected"  <?php } ?> ><?php echo trim($v) ; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        </td>
+                                         <td>                                            <label>
+                                            <input type="checkbox"  class='check-box' value="add"> 新增 </label>
+                                            <label>
+                                            <input type="checkbox"  class='check-box' value="edit"> 编辑 </label>
+                                            <label>
+                                            <input type="checkbox"  class='check-box' value="list"> 列表 </label>
+                                            <label>
+                                            <input type="checkbox"   class='check-box' value="sreach">搜索</label>
+                                             <input type="text"  class='box-check'  style='display:none'     name="fileds[check][]" ></td>
+                                        <td>
+                                              <a href="javascript:void(0);"  onclick="js_method(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
+                                               <a href="javascript:void(0);"  onclick="js_method(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
                                         </td>
                                     </tr>
                                         {/volist}

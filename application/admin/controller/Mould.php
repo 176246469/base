@@ -19,7 +19,7 @@ class Mould extends  BaseController
             $this->assign('data',$data);
             return $this->fetch('columns');
         }
-
+      //核心
         public function put(Request $request){
             if(empty($request->post())){
                 $data['type']=MouldModel::Type();
@@ -88,24 +88,20 @@ class Mould extends  BaseController
                 $this->returnInfo(0,'/index.php/admin/mould/columns','保存成功');       
             }      
         }
-
+      //核心
         public function set(Request $request){
             if(empty($request->post())){
               $mould= MouldModel::get($request->get('id'));
               $data['info']=$mould->toarray();
             
               $data['info']['add']=$this->mb_unserialize($data['info']['add']);
-            //preg_replace_callback('#s:(\d+):"(.*?)";#s',function($match){return 's:'.strlen($match[2]).':"'.$match[2].'";' } );
-                            //      $data['info']['add']=unserialize($match); 
-
               $data['info']['edit']=$this->mb_unserialize($data['info']['edit']);
               $data['info']['list']=$this->mb_unserialize($data['info']['list']);
-
               $data['info']['sreach']=$this->mb_unserialize($data['info']['sreach']);
               foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
                   $data['fileds'][$value->id]=$value->toarray();
               }
-             // var_dump(  MouldModel::Type());exit();
+            // var_dump(  $data['fileds']);exit();
               $this->assign('type',MouldModel::Type());
               $this->assign('validate',FiledsModel::$validate_data);
               $this->assign('data',$data);
@@ -119,10 +115,9 @@ class Mould extends  BaseController
             if(!empty($request->post())){
                 $data=$request->post();
                 $mould= MouldModel::get($data['id']);
-                 
                 $mould->add=serialize($data['filed']);
                 $mould->save();
-                 $this->returnInfo(0,'/index.php/admin/mould/set?id='.$data['id'],'保存成功');       
+                 $this->returnInfo(0,'/index.php/admin/mould/set?&id='.$data['id'],'保存成功');       
             }
       }      
       //set_edit
@@ -130,14 +125,32 @@ class Mould extends  BaseController
             if(!empty($request->post())){
                 $data=$request->post();
                 $mould= MouldModel::get($data['id']);
-                 
                 $mould->edit=serialize($data['filed']);
                 $mould->save();
-                 $this->returnInfo(0,'/index.php/admin/mould/set?id='.$data['id'],'保存成功');       
+                 $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-2&id='.$data['id'],'保存成功');       
             }
-      }     
+      } 
+      //set_list
+      public function set_list(Request $request){
+            if(!empty($request->post())){
+                $data=$request->post();
+                $mould= MouldModel::get($data['id']);
+                $mould->list=serialize($data['filed']);
+                $mould->save();
+                 $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-3&id='.$data['id'],'保存成功');       
+            }
+      } 
+      //set_sreach
+      public function set_sreach(Request $request){
+            if(!empty($request->post())){
+                $data=$request->post();
+                $mould= MouldModel::get($data['id']);
+                $mould->list=serialize($data['filed']);
+                $mould->save();
+                 $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-1&id='.$data['id'],'保存成功');       
+            }
+      }  
         public function del(Request $request){
-          
               $mould=MouldModel::get($request->get('id'));
               MouldModel::destroy($request->get('id'));
               MenuModel::destroy((['mould_id' =>$request->get('id')]));
@@ -242,16 +255,19 @@ class Mould extends  BaseController
       }
       if(!empty($data['info']['list'])){
         foreach($data['info']['list'] as $key=>$value){
-              $data['title'][]=$fileds[$key];
+              $data['title'][$fileds[$key]['filed']]=$fileds[$key];
         }        
       }else{
         $data['info']['list']=array();
         $data['title']=array();
       }
+
       $list=Db::table($mould->table)->where($where)->paginate(15);
       $data['list']=$list;
+      //var_dump($data);exit();
       $page = $list->render();
       $this->assign('page', $page);
+      $this->assign('host', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
       $this->assign('data',$data);
       return $this->fetch('view_columns');
     }

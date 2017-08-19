@@ -40,7 +40,7 @@
                                        <select class="form-control m-b" name="pid">
                                        <option value="0">---顶级---</option>
                                         {volist  name='data.menu' id='vo'}
-                                        <option value="{$vo.info.id}"  {eq name="data.pid" value="$vo.info.id"} checked="checked" {/eq}  >{$vo.info.name}</option>
+                                        <option value="{$vo.info.id}"  {eq name="data.pid" value="$vo.info.id"} selected = "selected" {/eq}  >{$vo.info.name}</option>
                                         {/volist}
                                     </select>
                                 </div>

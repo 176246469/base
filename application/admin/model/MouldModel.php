@@ -14,11 +14,12 @@ class MouldModel  extends BaseModel
                       '4'=>'单选[varchar(1)]',
                       '5'=>'多选[varchar(1)]',
                       '6'=>'多行文本[varchar(255)]',
-                      '10'=>'富文本[text(255)]',
+                      '7'=>'富文本[text(255)]',
                       '11'=>'日期[int(11)]',
-                      '12'=>'图片[varchar(255)]',
-                      '13'=>'视频[varchar(255)]',
-                      '14'=>'文件[varchar(255)]',
+                      '12'=>'时间[int(11)]',
+                      '13'=>'图片[varchar(255)]',
+                      '14'=>'视频[varchar(255)]',
+                      '15'=>'文件[varchar(255)]',
             ];
         if(empty($key)){
               return  $type;
