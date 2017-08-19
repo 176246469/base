@@ -9,6 +9,7 @@ function boxMsg(status,content){
        swal({title:content,text:content,type:"error"});
     }
 }
+
 /*基于sweetalert确认提示*/
 function boxConfirm(content,e){
     swal({
@@ -45,6 +46,14 @@ function del(url){
         });
 });
 }
+
+function status_change(obj,id,filed,status){
+
+      boxConfirm('你确定将当前状态改为'+status+'？',function(){
+//alert($(obj).closest('tr').html());
+        });
+  //alert(obj.parent('tr').html());
+}
 /*******/
 $(document).ready(function() {
   //boxMsg(1,777);
@@ -77,7 +86,7 @@ form.find('.targe-check').each(function(index, el) {
 /********************/
 
 var jc = {
-    api: document.domain,
+    api: 'http://'+window.location.host+'/',
     init: function() {
         _this = this;
     },
@@ -125,17 +134,8 @@ $("#mould-check-box").on("click",".check-box",function(){
   });
   $(this).parent().parent().find('input[class=box-check]').val(check);  
 });  
-$('.change-status').click(function(event) {
- /*
-      var targe-url=$(this).attr('targe-url'); 
-      var targe-tag=$(this).attr('targe-tag');
-      var targe-id=$(this).attr('targe-id');
-      var targe-status=$(this).attr('targe-status');
-      
-      boxConfirm('确定要'+targe-tag+'?',function(){
-          window.location.href=targe-url+'?id='+targe-id+'&targe-status='+targe-status;
-      });*/
-});
+
+
 
 $('#submit').click(function(event) {
  jc.submit($(this));
