@@ -27,10 +27,12 @@ class MouldModel  extends BaseModel
            return  $type[$key];
         }
    }
-    public static  function getList($param,$filed=""){
-            $id=$param['id'];
-            unset($param['id']);
-            
+    public static  function getList($id,$param,$filed=""){
+            if(!empty($param)){
+              foreach($param as $key=>$val){
+                 $where[$key]=['=',trim($val)];
+              }            
+            }
             $where['status']=['>',0];
              $info= self::find($id)->toarray();
              if(empty($filed)){
@@ -49,7 +51,6 @@ class MouldModel  extends BaseModel
             $data['page'] = $list->render();
             return  $data;
      }
-
       public static function getInfo($mould_id,$id){
              $info= self::find($mould_id)->toarray();
              $data=Db::table($info['table'])->find($id);

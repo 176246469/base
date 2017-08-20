@@ -247,6 +247,10 @@ class Mould extends  BaseController
     //模型列表
     public function view_columns(Request $request){
       $where['status']=['>',0];
+      if(empty($request->get('page'))){  //var_dump($request->get()); exit();
+           Session::set('mould_'.$request->get('mould_id').'.base',$request->get());      
+      }
+      //var_dump(Session::get('mould_'.$request->get('mould_id')));
       $mould= MouldModel::get($request->get('mould_id'));
       $data['info']=$mould->toarray();
       $data['info']['list']=unserialize($data['info']['list']);
