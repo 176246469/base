@@ -1,0 +1,70 @@
+    {include file="public/header" /} 
+    <link href="/static/H+ v4.1/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>账户管理</h5>
+
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                            <form role="form" class="form-inline" action="" method="post">
+                                <div class="form-group">
+                                  关键词：<input type="text"   class="form-control" name="keys" value="{$param.keys|default=''}">
+                                </div>
+                                <div class="form-group"> 
+                                  状态：<select class="form-control m-b" name="status" >
+                                            <option value="">不限</option>
+                                            <option value="0" {eq name="$param.status" value="0"} checked="checked" {/eq}>审核中</option>
+                                            <option value="1" {eq name="$param.status" value="1"} checked="checked" {/eq}>正常</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-white" type="submit">搜索</button>
+                                <a   class="btn btn-outline btn-default " style="float:right;"  href="/index.php/admin/admin/put">新增</a>
+                            </form>
+                        <div class="example">
+                            <table data-toggle="table"  >
+                                <thead>
+                                    <tr>
+                                        <th >ID</th>
+                                        <th >账户</th>
+                                        <th >姓名</th>
+                                        <th >隶属</th>
+                                        <th >状态</th>
+                                        <th class="col-sm-1">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name="data.list" id="vo"}
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.name}</td>
+                                        <td>{$vo.username}</td>
+                                        <td>{$vo.group}</td>
+                                        <td>{$vo.status}</td>
+                                        <td >
+                                            <a  href="/index.php/admin/admin/update?id={$vo.id}" class="btn btn-outline btn-default btn-xs ">修改</a>
+                                            <button  onclick="del('/index.php/admin/admin/del?id={$vo.id}');" type="button" class="btn btn-outline btn-default btn-xs ">删除</button>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                            {$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Basic -->
+    {include file="public/footer" /} 
+    <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
+    <script src="/static/H+ v4.1/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/static/H+ v4.1/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="/static/H+ v4.1/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+</body>
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:06 GMT -->
+</html>

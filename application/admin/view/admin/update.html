@@ -1,0 +1,61 @@
+    {include file="public/header" /} 
+<link href="/static/H+ v4.1/css/plugins/iCheck/custom.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>账户管理 <small>修改</small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal" action="/index.php/admin/admin/update">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"  >账户</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name='name'  value="{$data.info.name}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"  >姓名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name='username' value="{$data.info.username}" >
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">用户组</label>
+                                <div class="col-sm-10">
+                                       <select class="form-control m-b" name="group">
+                                        {volist  name='data.group' id='vo'}
+                                        <option value="{$vo.id}"    {eq name="data.info.group" value="$vo.id"} selected = "selected" {/eq} >{$vo.prefix}{$vo.name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>                         
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name='id' value="{$data.info.id}">
+                                    <input class="btn btn-primary" type="button"  id="submit"  value="保存">
+                                    <a  class="btn btn-white"  href="/index.php/admin/admin/columns">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="public/footer" /} 
+    <script src="/static/H+ v4.1/js/content.min.js?v=1.0.0"></script>
+    <script src="/static/H+ v4.1/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+</body>
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:15 GMT -->
+</html>
