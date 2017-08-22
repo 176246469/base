@@ -204,14 +204,15 @@
                         </div>
                         <div id="tab-5" class="tab-pane">
                             <div class="panel-body">
-                                 <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_sreach">
+                                 <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_fileds">
                                     <table class="table">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>名称</th>
                                             <th>字段</th>
-                                            <th>类型</th>
+                                             <th>默认值</th>
+                                             <th>类型</th>
                                             <th>设置</th>
                                             <th>操作</th>
                                         </tr>
@@ -219,25 +220,26 @@
                                     <tbody>
                                      {volist name="data.fileds" id="vo" }
                                     <tr>
-                                        <td>{$vo.id}   <input type="hidden" name="{$vo.id}" value="{$vo.id}"></td>
-                                        <td><input type="text" class="form-control" name="{$vo.id}" value="{$vo.title}"> </td>
-                                         <td><input type="text"class="form-control"  name="{$vo.filed}" value="{$vo.filed}"> </td>
+                                        <td>{$vo.id}   <input type="hidden" name="" value=""></td>
+                                        <td><input type="text" class="form-control" name="fileds[title][{$vo.id}]" value="{$vo.title}"> </td>
+                                         <td><input type="text"class="form-control"  name="fileds[filed][{$vo.id}]" value="{$vo.filed}"> </td>
+                                         <td> <input type="text"   class="form-control" name="fileds[value][{$vo.id}]"value="{$vo.value}" ></td>
                                          <td>
-                                        <select class="form-control" name="fileds3[{$key}][type]">
+                                        <select class="form-control"  name="fileds[type][{$vo.id}]">
                                             <?php foreach($type as $k =>$v)  { ?>
                                                 <option value="<?php echo $k; ?>" <?php  if($vo['type']==$k){ ?> selected = "selected"  <?php } ?> ><?php echo trim($v) ; ?></option>
                                             <?php } ?>
                                         </select>
                                         </td>
-                                         <td>                                            <label>
-                                            <input type="checkbox"  class='check-box' value="add"> 新增 </label>
+                                         <td><label>
+                                            <input type="checkbox"   <?php if(isset($data['info']['add'][$vo['id']])){ ?> checked="checked" <?php } ?> class='check-box' value="add"> 新增 </label>
                                             <label>
-                                            <input type="checkbox"  class='check-box' value="edit"> 编辑 </label>
+                                            <input type="checkbox"  class='check-box'  <?php if(isset($data['info']['edit'][$vo['id']])){ ?> checked="checked" <?php } ?>  value="edit"> 编辑 </label>
                                             <label>
-                                            <input type="checkbox"  class='check-box' value="list"> 列表 </label>
+                                            <input type="checkbox"  class='check-box' <?php if(isset($data['info']['list'][$vo['id']])){ ?> checked="checked" <?php } ?> value="list"> 列表 </label>
                                             <label>
-                                            <input type="checkbox"   class='check-box' value="sreach">搜索</label>
-                                             <input type="text"  class='box-check'  style='display:none'     name="fileds[check][]" ></td>
+                                            <input type="checkbox"   class='check-box'  <?php if(isset($data['info']['sreach'][$vo['id']])){ ?> checked="checked" <?php } ?>  value="sreach">搜索</label>
+                                             <input type="text"  class='box-check'  style='display:none'     name="fileds[check][{$vo.id}]" ></td>
                                         <td>
                                               <a href="javascript:void(0);"  onclick="js_method(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
                                                <a href="javascript:void(0);"  onclick="js_method(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
