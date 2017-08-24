@@ -21,8 +21,8 @@ class Api extends  BaseController
           }else{
             $mould_fileds='';
           }
-           $data=MouldModel::getList($mould_id,$param,$mould_fileds);
-           $this->returnInfo(0,$data,'获取成功');          
+          $data=MouldModel::getList($mould_id,$param,$mould_fileds);
+          $this->returnInfo(0,$data,'获取成功');
        }
 
        public function getInfo(Request $request){

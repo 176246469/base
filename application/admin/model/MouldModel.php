@@ -46,7 +46,7 @@ class MouldModel  extends BaseModel
              }else{
                 $filed_str="'*'";
              }  
-            $list=Db::table($info['table'])->field($filed_str)->where($where)->paginate(3);
+            $list=Db::table($info['table'])->field($filed_str)->where($where)->paginate(15);
             $data['list']=$list;
             $data['page'] = $list->render();
             return  $data;

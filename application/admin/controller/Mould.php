@@ -147,9 +147,54 @@ class Mould extends  BaseController
                 $mould= MouldModel::get($data['id']);
                 $mould->list=serialize($data['filed']);
                 $mould->save();
-                 $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-1&id='.$data['id'],'保存成功');       
+                $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-1&id='.$data['id'],'保存成功');       
             }
       }  
+      public function set_fileds(Request $request){
+            if(!empty($request->post())){
+                $data=$request->post();
+                 $mould= MouldModel::get($data['id']);
+                 foreach($data['fileds']['filed'] as $key =>$value){
+                   $info=  FiledsModel::find($key);
+                   if($info->title<>$data['fileds']['title'][$key]){
+                      $info->title=$data['fileds']['title'][$key];
+                   }
+                   if($info->value<>$data['fileds']['value'][$key]){
+                      $info->value=$data['fileds']['value'][$key];
+                   }
+                   if($info->type<>$data['fileds']['type'][$key]){
+                    //字段类型修改
+                      $info->type=$data['fileds']['type'][$key];
+                   }
+                   if($info->filed<>$data['fileds']['filed'][$key]){
+                    //字段名称修改
+                     preg_match('/\[(.*)\]/i', $mould::Type($data['fileds']['type'][$key]),$res);
+                       $sql=" ALTER TABLE ".$mould->table." CHANGE ".$info->filed." ".$data['fileds']['filed'][$key]." ".$res[1];
+                       $info->filed=$data['fileds']['filed'][$key]; 
+                       Db::execute($sql);
+                   }
+                   $info->save();
+                    //新增字段
+                    if(isset($data['add'])){
+                         foreach($data['add']['filed'] as $key =>$value){
+                            $filedsModel= new FiledsModel();
+                            $filedsModel->mould_id=$data['id'];
+                            $filedsModel->title=$data['add']['title'][$key]; 
+                            $filedsModel->filed=$data['add']['filed'][$key]; 
+                            $filedsModel->type=$data['add']['type'][$key]; 
+                            $filedsModel->value=$data['add']['value'][$key]; 
+
+                            preg_match('/\[(.*)\]/i', $mould::Type($data['add']['type'][$key]),$res);
+                            $sql="alter table ".$mould->table." add ".$filedsModel->filed." ".$res[1]." not Null;";
+                               Db::execute($sql);
+                            $filedsModel->save();
+
+                        }
+                    }
+                   $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-5&id='.$data['id'],'保存成功');       
+                 }      
+            }
+      } 
         public function del(Request $request){
               $mould=MouldModel::get($request->get('id'));
               MouldModel::destroy($request->get('id'));
@@ -170,8 +215,8 @@ class Mould extends  BaseController
                foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
                   $data['fileds'][$value->id]=$value->toarray();
                   //多选
-                  if($value->type==2 || $value->type==3){
-                    $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
+                  if($value->type==4 || $value->type==5){
+                    $data['fileds'][$value->id]['value']=explode(',',$data['fileds'][$value->id]['value']);
                   }
                } 
               $this->assign('data',$data);
@@ -208,8 +253,8 @@ class Mould extends  BaseController
            foreach(FiledsModel::all(['mould_id'=>$mould_id]) as $value){
               $data['fileds'][$value->id]=$value->toarray();
               //多选
-              if($value->type==2 || $value->type==3){
-                $data['fileds'][$value->id]['value']=explode('，',$data['fileds'][$value->id]['value']);
+              if($value->type==4 || $value->type==5){
+                $data['fileds'][$value->id]['value']=explode(',',$data['fileds'][$value->id]['value']);
               }
              $data['fileds'][$value->id]['filed_value']=$tab_info[$value->filed];
            } 
@@ -247,15 +292,53 @@ class Mould extends  BaseController
     //模型列表
     public function view_columns(Request $request){
       $where['status']=['>',0];
-      if(empty($request->get('page'))){  //var_dump($request->get()); exit();
-           Session::set('mould_'.$request->get('mould_id').'.base',$request->get());      
+      //post 查询
+
+      if($request->post()){
+        $post=$request->post();
+          Session::set('mould_'.$request->get('mould_id').'.post',$post);   
+      }else{
+         $post=Session::get('mould_'.$request->get('mould_id').'.post');   
       }
-      //var_dump(Session::get('mould_'.$request->get('mould_id')));
+
+      if(!empty($post)){
+        foreach($post as $key=>$value){
+          if(!empty($value)){
+              if(strpos($key,'_') !== false){
+                    $str=explode('_',$key);
+                     $where[$str[0]]=['BETWEEN',strtotime($post[$str[0].'_min'].' 00:00:00').','.strtotime($post[$str[0].'_max'].'23:59:59')];
+              }else{
+                    $where[$key]=['like','%'.$value.'%'];
+              }              
+          }
+        }        
+      }
+      if(empty($request->get('page'))){
+            /*过滤参数*/
+            $param=$request->get();
+            unset($param['mould_id']);
+            unset($param['page']);
+            Session::set('mould_'.$request->get('mould_id').'.base',$param); 
+            Session::delete('mould_'.$request->get('mould_id').'.post');
+      }else{
+            Session::get('mould_'.$request->get('mould_id').'.base');   
+      }
+      if(!empty($param)){
+        foreach($param as $key=>$value){
+          $where[$key]=['=',$value];
+        }   
+      }
+
       $mould= MouldModel::get($request->get('mould_id'));
       $data['info']=$mould->toarray();
       $data['info']['list']=unserialize($data['info']['list']);
+      $data['info']['sreach']=unserialize($data['info']['sreach']);
+
       foreach(FiledsModel::all(['mould_id'=>$request->get('mould_id')]) as $value ){
                 $fileds[$value->id]=$value->toarray();
+                if($value->type=='4'){
+                  $fileds[$value->id]['value']=explode(',',$fileds[$value->id]['value']);
+                }
       }
       if(!empty($data['info']['list'])){
         foreach($data['info']['list'] as $key=>$value){
@@ -265,12 +348,12 @@ class Mould extends  BaseController
         $data['info']['list']=array();
         $data['title']=array();
       }
-
       $list=Db::table($mould->table)->where($where)->paginate(15);
-      $data['list']=$list;
-      //var_dump($data);exit();
+      $data['list']=$list; 
       $page = $list->render();
+      $this->assign('post', $post);
       $this->assign('page', $page);
+      $this->assign('fileds', $fileds);
       $this->assign('host', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
       $this->assign('data',$data);
       return $this->fetch('view_columns');

@@ -1,5 +1,35 @@
     {include file="public/header" /} 
     <link href="/static/H+ v4.1/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+        <script>
+            Date.prototype.Format = function (fmt) { //author: meizz 
+                var o = {
+                    "M+": this.getMonth() + 1, //月份 
+                    "d+": this.getDate(), //日 
+                    "h+": this.getHours(), //小时 
+                    "m+": this.getMinutes(), //分 
+                    "s+": this.getSeconds(), //秒 
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                    "S": this.getMilliseconds() //毫秒 
+                };
+                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            }
+         //时间控件
+          $(document).ready(function() {
+            $(".input-group.date").datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: !1,
+                forceParse: !1,
+                   dateFormat: 'mm/yy',
+                defaultDate: '-1M',
+                calendarWeeks: !0,
+                autoclose: !0
+            });
+             $(".input-group.date input").val(new Date().Format("yyyy-MM-dd"));
+         });
+        </script>
 </head>
 <body class="gray-bg">
         <div class="ibox float-e-margins">
@@ -9,9 +39,47 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                    {notempty name="data.info.add"}
-                        <h4 class="example-title"> <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/view_put?mould_id={$data.info.id}">新增</a></h4>
+                        <div class=" form-inline"> <form method="post" action="">
+                        {notempty name="data.info.add"}
+                            <div class="form-group">
+                                <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/view_put?mould_id={$data.info.id}">新增</a>
+                            </div>
                         {/notempty}
+                          {volist name="data.info.sreach" id="vo"}
+                            {switch name="$fileds[$key]['type']"}
+                            {case value="1"} <div class="form-group"><input type="text"  name="{$fileds[$key]['filed']}" placeholder=" 请输入{$fileds[$key]['title']}"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div> {/case}
+                            {case value="4"}   <div class="form-group">
+                                            <div class="col-sm-10">
+                                                    <select class="form-control m-b"  name="{$fileds[$key]['filed']}">
+                                                     <option value="0">不限</option>
+                                                     {volist  name="$fileds[$key]['type']['value']" id="select_val"}
+                                                        <option value="{$select_val}">{$select_val}</option>
+                                                     {/volist}
+                                                    </select>
+                                            </div></div>
+                            {/case} 
+                            {case value="11"}  {$fileds[$key]['title']}
+                               <div class="form-group">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" name="{$fileds[$key]['filed']}_min"  value="" >
+                                    </div>
+                                </div> 
+                               <div class="form-group">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" name="{$fileds[$key]['filed']}_max"   value="" >
+                                    </div>
+                                </div>                       
+                            {/case}       
+                            {/switch}
+                        
+                            {/volist}    
+                            <div class="form-group">
+                                <button class="btn btn-white" type="submit">查询</button>
+                            </div>
+                              </form>
+                        </div>
                         <div class="example">
                             <table data-toggle="table"  >
                                 <thead>
@@ -76,6 +144,7 @@
     <script>
         $(document).ready(function() {
             $('.pagination  a').each(function(index, el) {
+                //window.location.search
                 $(this).attr('href',$(this).attr('href')+'&mould_id={$data.info.id}');
             });
         });

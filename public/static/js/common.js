@@ -1,5 +1,3 @@
-
-
 /*基于sweetalert消息提示框*/
 function boxMsg(status,content){
     //成功
@@ -50,41 +48,10 @@ function del(url){
 function status_change(obj,id,filed,status){
 
       boxConfirm('你确定将当前状态改为'+status+'？',function(){
-//alert($(obj).closest('tr').html());
-        });
-  //alert(obj.parent('tr').html());
+     });
 }
 /*******/
 $(document).ready(function() {
-  //boxMsg(1,777);
-/*验证*******************/
-/*
-function fcheck(obj){
-var form=$(obj).closest('form');
-form.find('.targe-check').each(function(index, el) {
-   var type= $(this).attr('targe-check-type');
-    var strs= new Array();  
-    strs=type.split("|"); //字符分割 
-    for (i=0;i<strs.length ;i++ ) { 
-        switch(strs[i])
-        {
-        case 'number':
-          
-          break;
-        case 2:
-           
-          break;
-        default:
-         
-        }
-    } 
-
-});
-
-
-}*/
-/********************/
-
 var jc = {
     api: 'http://'+window.location.host+'/',
     init: function() {
@@ -119,7 +86,6 @@ var jc = {
     },
     //提示
     alert: function(status,message) {
-      
             boxMsg(status,message);
     }
 }
@@ -134,8 +100,6 @@ $("#mould-check-box").on("click",".check-box",function(){
   });
   $(this).parent().parent().find('input[class=box-check]').val(check);  
 });  
-
-
 
 $('#submit').click(function(event) {
  jc.submit($(this));

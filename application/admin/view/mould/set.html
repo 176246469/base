@@ -7,15 +7,15 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li  {eq name=":input('param.tab')" value=""} class="active" {/eq} ><a data-toggle="tab" href="#tab-1" aria-expanded="false"> 新增</a>
+                        <li  {eq name=":input('param.tab')" value=""} class="active" {/eq} ><a data-toggle="tab" href="#tab-1"  {eq name=":input('param.tab')" value=""} aria-expanded="true" {else/}  aria-expanded="false" {/eq} > 新增</a>
                         </li>
-                        <li   {eq name=":input('param.tab')" value="tab-2"} class="active" {/eq} ><a data-toggle="tab" href="#tab-2" aria-expanded="false">修改</a>
+                        <li   {eq name=":input('param.tab')" value="tab-2"} class="active" {/eq} ><a data-toggle="tab" href="#tab-2"  {eq name=":input('param.tab')" value="tab-2"} aria-expanded="true" {else/}  aria-expanded="false" {/eq}>修改</a>
                         </li>
-                        <li {eq name=":input('param.tab')" value="tab-3"} class="active" {/eq}><a data-toggle="tab" href="#tab-3" aria-expanded="false"> 列表</a>
+                        <li {eq name=":input('param.tab')" value="tab-3"} class="active" {/eq}><a data-toggle="tab" href="#tab-3"  {eq name=":input('param.tab')" value="tab-3"} aria-expanded="true" {else/}  aria-expanded="false" {/eq}> 列表</a>
                         </li>
                         <li  {eq name=":input('param.tab')" value="tab-4"} class="active" {/eq}><a data-toggle="tab" href="#tab-4" aria-expanded="false">搜索</a>
                         </li>
-                        <li  {eq name=":input('param.tab')" value="tab-5"} class="active" {/eq}><a data-toggle="tab" href="#tab-5" aria-expanded="false">设置</a>
+                        <li   {eq name=":input('param.tab')" value="tab-5"} class="active" {/eq}><a  data-toggle="tab" href="#tab-5" aria-expanded="true">设置</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -241,8 +241,8 @@
                                             <input type="checkbox"   class='check-box'  <?php if(isset($data['info']['sreach'][$vo['id']])){ ?> checked="checked" <?php } ?>  value="sreach">搜索</label>
                                              <input type="text"  class='box-check'  style='display:none'     name="fileds[check][{$vo.id}]" ></td>
                                         <td>
-                                              <a href="javascript:void(0);"  onclick="js_method(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
-                                               <a href="javascript:void(0);"  onclick="js_method(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
+                                              <a href="javascript:void(0);"  onclick="js_method_set(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
+                                               <a href="javascript:void(0);"  onclick="js_method_set(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
                                         </td>
                                     </tr>
                                         {/volist}
@@ -251,6 +251,36 @@
                                 <input  type="hidden"  name="id"  value="{$data.info.id}">
                                 <input class="btn btn-primary submit_all" type="button"    value="保存">
                                 </form>
+                                <table style="display:none">
+                                  <tbody  id="add_set">
+                                <tr>
+                                        <td> <input type="hidden" name="" value=""></td>
+                                        <td><input type="text" class="form-control" name="add[title][]" > </td>
+                                         <td><input type="text"class="form-control"  name="add[filed][]" > </td>
+                                         <td> <input type="text"   class="form-control" name="add[value][]" ></td>
+                                         <td>
+                                        <select class="form-control"  name="add[type][]">
+                                            <?php foreach($type as $k =>$v)  { ?>
+                                                <option value="<?php echo $k; ?>"  ><?php echo trim($v) ; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        </td>
+                                         <td><label>
+                                            <input type="checkbox"    class='check-box' value="add"> 新增 </label>
+                                            <label>
+                                            <input type="checkbox"  class='check-box'   value="edit"> 编辑 </label>
+                                            <label>
+                                            <input type="checkbox"  class='check-box'  value="list"> 列表 </label>
+                                            <label>
+                                            <input type="checkbox"   class='check-box'   value="sreach">搜索</label>
+                                             <input type="text"  class='box-check'  style='display:none'     name="add[check][]" ></td>
+                                        <td>
+                                              <a href="javascript:void(0);"  onclick="js_method_set(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
+                                               <a href="javascript:void(0);"  onclick="js_method_set(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
+                                        </td>
+                                        </tr>
+                                        </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
