@@ -70,6 +70,26 @@ class MouldModel  extends BaseModel
         $serial_str = preg_replace_callback('!s:(\d+):"(.*?)";!s', create_function('$math',"return 's:'.strlen(\$math[2]).':\"'.\$math[2].'\";';"), $serial_str); 
         return unserialize($serial_str);
     }
-}
+    
+   //单选数据表生产
+    public static  function f5($select){
+      $result = array();
+      preg_match_all("/(?:\{)(.*)(?:\})/i",$select, $result);
+      if(isset($result[1][0])&&!empty($result[1][0])){
+              $str=explode('|',$result[1][0]);
+              $tab=$str[0];
+              $str=explode(':',$str[1]);
+              $key=$str[0];
+              $value=$str[1];
+              $rs=array();
+              foreach(Db::table($tab)->distinct(true)->field($key.','.$value)->select() as $k=>$v){
+                  $rs[$k]=$v;
 
+              }
+      return $rs;
+      }else{
+        return $select;
+      }
+    }
+  }
 ?>

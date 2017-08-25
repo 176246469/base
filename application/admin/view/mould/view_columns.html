@@ -143,9 +143,21 @@
      <script src="/static/H+ v4.1/js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script>
         $(document).ready(function() {
+            var search= window.location.search;
+            var param='';
+            search=search.replace("?","");
+            search=search.split("&");
+            for (i=0;i<search.length ;i++ ){ 
+                    var first=search[i];
+                    first=  first.split("=");
+                     if(first[0]!='page' && first[0]!='' ){
+                       search[i]=search[i].replace("&","");
+                       param=param+'&'+search[i];
+                     } 
+            }
+  
             $('.pagination  a').each(function(index, el) {
-                //window.location.search
-                $(this).attr('href',$(this).attr('href')+'&mould_id={$data.info.id}');
+                $(this).attr('href',$(this).attr('href')+param);
             });
         });
     </script>
