@@ -184,7 +184,7 @@
                                         <td>{$data["fileds"][$key]['title']}</td>
                                          <td>{$data["fileds"][$key]['filed']}</td>
                                          <td>{$type[$data["fileds"][$key]['type']]}</td>
-                                         <td><select class="form-control m-b" name="filed[{$key}][type][]">
+                                         <td><select class="form-control m-b" name="filed[{$key}][iskey]">
                                         <option value="1"> 是</option>
                                         <option value="2">否</option>
                                          </select></td>
@@ -239,7 +239,7 @@
                                             <input type="checkbox"  class='check-box' <?php if(isset($data['info']['list'][$vo['id']])){ ?> checked="checked" <?php } ?> value="list"> 列表 </label>
                                             <label>
                                             <input type="checkbox"   class='check-box'  <?php if(isset($data['info']['sreach'][$vo['id']])){ ?> checked="checked" <?php } ?>  value="sreach">搜索</label>
-                                             <input type="text"  class='box-check'  style='display:none'     name="fileds[check][{$vo.id}]" ></td>
+                                             <input type="text"  class='box-check'  style='display:none'  value="add,edit"   name="fileds[check][{$vo.id}]" ></td>
                                         <td>
                                               <a href="javascript:void(0);"  onclick="js_method_set(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
                                                <a href="javascript:void(0);"  onclick="js_method_set(this,2);"><i class="glyphicon glyphicon-minus"></i></a>
@@ -273,7 +273,7 @@
                                             <input type="checkbox"  class='check-box'  value="list"> 列表 </label>
                                             <label>
                                             <input type="checkbox"   class='check-box'   value="sreach">搜索</label>
-                                             <input type="text"  class='box-check'  style='display:none'     name="add[check][]" ></td>
+                                             <input type="text"  class='box-check'  style='display:none'   value="add,edit"  name="add[check][]" ></td>
                                         <td>
                                               <a href="javascript:void(0);"  onclick="js_method_set(this,1);"><i class="glyphicon glyphicon-plus"></i></a>
                                                <a href="javascript:void(0);"  onclick="js_method_set(this,2);"><i class="glyphicon glyphicon-minus"></i></a>

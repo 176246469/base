@@ -183,7 +183,9 @@
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <input type="hidden" name='mould_tab_id' value="{$tab_info.id}">
                                     <input class="btn btn-primary" type="button"  id="submit"  value="保存">
-                                    <a  class="btn btn-white"  href="/index.php/admin/mould/view_columns?mould_id={$data.info.id}">取消</a>
+                                        {notempty name="data.info.list"}
+                                                    <a  class="btn btn-white"  href="/index.php/admin/mould/view_columns?mould_id={$data.info.id}">取消</a>
+                                        {/notempty}
                                 </div>
                             </div>
                         </form>

@@ -47,12 +47,18 @@
                         {/notempty}
                           {volist name="data.info.sreach" id="vo"}
                             {switch name="$fileds[$key]['type']"}
-                            {case value="1"} <div class="form-group"><input type="text"  name="{$fileds[$key]['filed']}" placeholder=" 请输入{$fileds[$key]['title']}"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div> {/case}
+                            {case value="1"}
+                                <?php  isset($fileds[$key]['iskey']) && $fileds[$key]['iskey']==1 { $count++; ?>
+                                        <div class="form-group"><input type="text"  name="key" placeholder=" 请输入关键词"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div>
+                               <?php }else{ ?>
+                                        <div class="form-group"><input type="text"  name="{$fileds[$key]['filed']}" placeholder=" 请输入{$fileds[$key]['title']}"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div>                                
+                                <?php } ?>
+                             {/case}
                             {case value="4"}   <div class="form-group">
                                             <div class="col-sm-10">
-                                                    <select class="form-control m-b"  name="{$fileds[$key]['filed']}">
+                                                    <select class="form-control "  name="{$fileds[$key]['filed']}">
                                                      <option value="0">不限</option>
-                                                     {volist  name="$fileds[$key]['type']['value']" id="select_val"}
+                                                     {volist  name="$fileds[$key]['value']" id="select_val"}
                                                         <option value="{$select_val}">{$select_val}</option>
                                                      {/volist}
                                                     </select>
@@ -73,15 +79,14 @@
                                 </div>                       
                             {/case}       
                             {/switch}
-                        
                             {/volist}    
                             <div class="form-group">
-                                <button class="btn btn-white" type="submit">查询</button>
+                                <button class="btn  btn-success" type="submit">查询</button>
                             </div>
                               </form>
                         </div>
-                        <div class="example">
-                            <table data-toggle="table"  >
+                        <div class="example"><hr>
+                            <table data-toggle="table"  class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th >ID</th>

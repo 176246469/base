@@ -72,7 +72,7 @@ class MouldModel  extends BaseModel
     }
     
    //单选数据表生产
-    public static  function f5($select){
+    public static  function is_from_tab($select){
       $result = array();
       preg_match_all("/(?:\{)(.*)(?:\})/i",$select, $result);
       if(isset($result[1][0])&&!empty($result[1][0])){
