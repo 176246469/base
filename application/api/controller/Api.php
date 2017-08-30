@@ -31,11 +31,14 @@ class Api extends  BaseController
        }
 
        public function updateInfo(Request $request){
-           $data=MouldModel::getInfo($request->post('mould_id'),$request->get('$id'));
-           $this->returnInfo(0,$data,'获取成功');          
+           $param= $request->post();
+           unset($param['mould_id']);
+           unset($param['id']);
+           $data=MouldModel::updateInfo($request->post('mould_id'),$request->post('$id'),$param);
+           $this->returnInfo(0,$data,'获取成功'); 
        }
        public function delInfo(Request $request){
-           $data=MouldModel::getInfo($request->post('mould_id'),$request->get('$id'));
+           $data=MouldModel::delInfo($request->post('mould_id'),$request->get('$id'));
            $this->returnInfo(0,$data,'获取成功');          
        }
 }

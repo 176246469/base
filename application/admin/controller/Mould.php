@@ -408,7 +408,16 @@ class Mould extends  BaseController
       $data['info']=$mould->toarray();
       $data['info']['list']=unserialize($data['info']['list']);
       $data['info']['sreach']=unserialize($data['info']['sreach']);
-
+      if(!empty($data['info']['sreach'])){
+        foreach($data['info']['sreach'] as $val){
+          if(  isset($val['iskey'])&&$val['iskey']==1){
+                $iskey=1;
+                break;
+          }else{
+                $iskey=0;
+          }
+        }
+      }
       foreach(FiledsModel::all(['mould_id'=>$request->get('mould_id')]) as $value ){
                 $fileds[$value->id]=$value->toarray();
                 if($value->type=='4'){
@@ -432,6 +441,7 @@ class Mould extends  BaseController
       $this->assign('fileds', $fileds);
       $this->assign('host', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
       $this->assign('data',$data);
+      $this->assign('iskey',$iskey);
       return $this->fetch('view_columns');
     }
 

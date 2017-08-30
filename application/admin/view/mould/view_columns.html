@@ -45,12 +45,15 @@
                                 <a   class="btn btn-outline btn-default "  href="/index.php/admin/mould/view_put?mould_id={$data.info.id}">新增</a>
                             </div>
                         {/notempty}
+                        {eq name="iskey" value="1"}
+                            <div class="form-group">
+                            <input type="text"  name="key" placeholder=" 请输入关键词"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control">
+                            </div>
+                        {/eq}
                           {volist name="data.info.sreach" id="vo"}
                             {switch name="$fileds[$key]['type']"}
                             {case value="1"}
-                                <?php  isset($fileds[$key]['iskey']) && $fileds[$key]['iskey']==1 { $count++; ?>
-                                        <div class="form-group"><input type="text"  name="key" placeholder=" 请输入关键词"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div>
-                               <?php }else{ ?>
+                                <?php  isset($fileds[$key]['iskey']) && $fileds[$key]['iskey']==0 { ?>
                                         <div class="form-group"><input type="text"  name="{$fileds[$key]['filed']}" placeholder=" 请输入{$fileds[$key]['title']}"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div>                                
                                 <?php } ?>
                              {/case}
