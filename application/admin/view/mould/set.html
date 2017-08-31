@@ -19,7 +19,7 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div id="tab-1" class="tab-pane active">
+                        <div id="tab-1"  {eq name=":input('param.tab')" value=""} class="tab-pane active" {else/} class="tab-pane" {/eq} >
                             <div class="panel-body">
                              <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_add">
                                 <table class="table">
@@ -65,7 +65,7 @@
                             </form>
                             </div>
                         </div>
-                        <div id="tab-2" class="tab-pane">
+                        <div id="tab-2"  {eq name=":input('param.tab')" value="tab-2"} class="tab-pane active" {else/} class="tab-pane" {/eq} >
                             <div class="panel-body">
                                  <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_edit">
                                     <table class="table">
@@ -117,7 +117,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="tab-3" class="tab-pane">
+                        <div id="tab-3"  {eq name=":input('param.tab')" value="tab-3"} class="tab-pane active" {else/} class="tab-pane" {/eq} >
                             <div class="panel-body">
                                  <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_list">
                                     <table class="table">
@@ -163,7 +163,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="tab-4" class="tab-pane">
+                        <div id="tab-4" {eq name=":input('param.tab')" value="tab-4"} class="tab-pane active" {else/} class="tab-pane" {/eq}>
                             <div class="panel-body">
                                  <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_sreach">
                                     <table class="table">
@@ -202,7 +202,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="tab-5" class="tab-pane">
+                        <div id="tab-5" {eq name=":input('param.tab')" value="tab-5"} class="tab-pane active" {else/} class="tab-pane" {/eq}>
                             <div class="panel-body" id="mould-check-box">
                                  <form method="post" class="form-horizontal" action="/index.php/admin/mould/set_fileds">
                                     <table class="table">

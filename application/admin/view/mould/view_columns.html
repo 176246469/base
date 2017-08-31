@@ -53,7 +53,7 @@
                           {volist name="data.info.sreach" id="vo"}
                             {switch name="$fileds[$key]['type']"}
                             {case value="1"}
-                                <?php  isset($fileds[$key]['iskey']) && $fileds[$key]['iskey']==0 { ?>
+                                <?php  if(!isset($fileds[$key]['iskey']) ||  $fileds[$key]['iskey']!=1) { ?>
                                         <div class="form-group"><input type="text"  name="{$fileds[$key]['filed']}" placeholder=" 请输入{$fileds[$key]['title']}"  value="{$post[$fileds[$key]['filed']]|default=''}" class="form-control"> </div>                                
                                 <?php } ?>
                              {/case}
@@ -163,7 +163,6 @@
                        param=param+'&'+search[i];
                      } 
             }
-  
             $('.pagination  a').each(function(index, el) {
                 $(this).attr('href',$(this).attr('href')+param);
             });

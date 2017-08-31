@@ -145,9 +145,9 @@ class Mould extends  BaseController
             if(!empty($request->post())){
                 $data=$request->post();
                 $mould= MouldModel::get($data['id']);
-                $mould->list=serialize($data['filed']);
+                $mould->sreach=serialize($data['filed']);
                 $mould->save();
-                $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-1&id='.$data['id'],'保存成功');       
+                $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-4&id='.$data['id'],'保存成功');       
             }
       }  
       public function set_fileds(Request $request){
@@ -422,7 +422,6 @@ class Mould extends  BaseController
                 $fileds[$value->id]=$value->toarray();
                 if($value->type=='4'){
                   $fileds[$value->id]['value']=explode(',',$fileds[$value->id]['value']);
-                  //var_dump( $fileds[$value->id]['value']);exit();
                 }
       }
       if(!empty($data['info']['list'])){
