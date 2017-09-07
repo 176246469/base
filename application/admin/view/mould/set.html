@@ -185,8 +185,8 @@
                                          <td>{$data["fileds"][$key]['filed']}</td>
                                          <td>{$type[$data["fileds"][$key]['type']]}</td>
                                          <td><select class="form-control m-b" name="filed[{$key}][iskey]">
-                                        <option value="1"> 是</option>
-                                        <option value="2">否</option>
+                                        <option value="1"   {eq name="$vo['iskey']" value="1"}    selected="selected"  {/eq} > 是</option>
+                                        <option value="2"   {eq name="$vo['iskey']" value="2"} selected="selected"   {/eq} >否 </option>
                                          </select></td>
                                         <td>
                                         <a  class="btn btn-outline btn-default btn-xs btn-top"  href="#">↑</a>

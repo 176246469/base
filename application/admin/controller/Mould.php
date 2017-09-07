@@ -101,7 +101,7 @@ class Mould extends  BaseController
               foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
                   $data['fileds'][$value->id]=$value->toarray();
               }
-            // var_dump(  $data['fileds']);exit();
+           //  var_dump(  $data['info']['sreach']);exit();
               $this->assign('type',MouldModel::Type());
               $this->assign('validate',FiledsModel::$validate_data);
               $this->assign('data',$data);
