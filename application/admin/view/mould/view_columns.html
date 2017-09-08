@@ -109,7 +109,14 @@
                                                 {switch name="$data['title'][$vo1.filed]['type']"}
                                                         {case value="2"}<span style="float:right;">{$vo[$vo1.filed]}</span>{/case}
                                                         {case value="3"}<span style="float:right;">{$vo[$vo1.filed]}</span>{/case}
-                                                         {case value="4"}<a onclick="status_change(this,{$vo.id},{$data['title'][$vo1.filed]['id']},'发货中');"  href="javascript:void(0);"  class="btn btn-white btn-bitbucket btn-xs "><i class="fa " >   {$vo[$vo1.filed]} </i></a>{/case}
+                                                         {case value="4"}
+                                                         <?php  $select= array_search($vo[$vo1['filed']] ,$data['title'][$vo1['filed']]['value']); ?>
+                                                         <?php  if(count($data['title'][$vo1['filed']]['value'])==($select+1)){ ?>
+                                                            <a href="javascript:void(0);"  class="btn btn-white btn-bitbucket btn-xs "><i class="fa " >   {$vo[$vo1.filed]} </i></a>
+                                                         <?php  }else{  ?>
+                                                         <a onclick="status_change(this,{$vo.id},{$data['title'][$vo1.filed]['id']},'{$data['title'][$vo1['filed']]['value'][($select+1)]}');"  href="javascript:void(0);"  class="btn btn-white btn-bitbucket btn-xs "><i class="fa " >   {$vo[$vo1.filed]} </i></a>
+                                                        <?php } ?>
+                                                         {/case}
                                                         {case value="6"}<?php  echo mb_substr(strip_tags($vo[$vo1['filed']]),1,30);  ?>{/case}
                                                         {case value="7"}<?php  echo mb_substr(strip_tags($vo[$vo1['filed']]),1,30);  ?>{/case}
                                                         {case value="11"}{$vo[$vo1.filed]|date="Y-m-d ",###}{/case}

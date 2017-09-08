@@ -93,7 +93,6 @@ class Mould extends  BaseController
             if(empty($request->post())){
               $mould= MouldModel::get($request->get('id'));
               $data['info']=$mould->toarray();
-            
               $data['info']['add']=$this->mb_unserialize($data['info']['add']);
               $data['info']['edit']=$this->mb_unserialize($data['info']['edit']);
               $data['info']['list']=$this->mb_unserialize($data['info']['list']);
@@ -101,7 +100,6 @@ class Mould extends  BaseController
               foreach (FiledsModel::all(['mould_id'=>$request->get('id')]) as $key => $value) {
                   $data['fileds'][$value->id]=$value->toarray();
               }
-           //  var_dump(  $data['info']['sreach']);exit();
               $this->assign('type',MouldModel::Type());
               $this->assign('validate',FiledsModel::$validate_data);
               $this->assign('data',$data);
@@ -150,6 +148,11 @@ class Mould extends  BaseController
                 $this->returnInfo(0,'/index.php/admin/mould/set?tab=tab-4&id='.$data['id'],'保存成功');       
             }
       }  
+
+
+      public function status_change(){
+        
+      }
       public function set_fileds(Request $request){
             if(!empty($request->post())){
                 $data=$request->post();
@@ -178,7 +181,6 @@ class Mould extends  BaseController
                        Db::execute($sql);
                    }
                    //字段
-
                    $action=explode(',',$data['fileds']['check'][$key]);
                    if(in_array('add',$action)){
                             if(!isset($mould_add[$key])){
@@ -196,7 +198,6 @@ class Mould extends  BaseController
                    }else{
                             if(isset($mould_edit[$key])){
                               unset($mould_edit[$key]);
-                           //  $mould->edit[$key]=1;
                             }
                    }
                    if(in_array('list',$action)){
@@ -435,6 +436,7 @@ class Mould extends  BaseController
       $list=Db::table($mould->table)->where($where)->paginate(15);
       $data['list']=$list; 
       $page = $list->render();
+      //var_dump($data);exit();
       $this->assign('post', $post);
       $this->assign('page', $page);
       $this->assign('fileds', $fileds);
@@ -443,7 +445,6 @@ class Mould extends  BaseController
       $this->assign('iskey',$iskey);
       return $this->fetch('view_columns');
     }
-
     public function view_del(Request $request){
       $mould= MouldModel::get($request->get('mould_id'));
       DB::table($mould->table)->where('id', $request->get('id'))->update(['status' => -1]);
